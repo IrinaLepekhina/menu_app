@@ -2,12 +2,11 @@
   <%= f.input :title%>
   <%= f.input :price_type, collection: Meal.price_types.map { |k,v| [ k.split('_').join(' '), k ]} %>
   <%= f.input :description %>
-  <%= f.input :categories_id, collection: Category.all, label_method: :name, value_method: :id, :prompt => 'Choose an existing Item', label: 'Category' %>
   <%= f.input :promo, label: 'Promo meal' %>
   <%= f.input :cover_image, as: :file %>
+  <%= f.input :category_id, collection: Category.all, label_method: :title, value_method: :id, :prompt => 'Choose an existing Item', label: 'Category' %>
   <%= f.input :price_init, label: 'Price' %>
   
-
   <%= f.submit 'Create Meal', class: 'btn btn-primary' %>
 
 <% end %>

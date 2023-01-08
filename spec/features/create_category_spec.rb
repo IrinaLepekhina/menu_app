@@ -6,12 +6,12 @@ describe 'create new category' do
   it 'create new category with valid date' do
     visit('/')
     click_on('New Category')
-    fill_in('Name', with: 'Soup')
+    fill_in('Title', with: 'Soup')
 
     click_on('Create Category')
 
     expect(page).to have_content('Category has been created')
-    expect(Category.last.name).to eq('Soup')
+    expect(Category.last.title).to eq('Soup')
   end
 
 
