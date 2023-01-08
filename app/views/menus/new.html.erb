@@ -1,0 +1,10 @@
+<%= simple_form_for @menu do |f| %>
+    <%= f.input :title%>
+
+    <%= f.input :meals, collection: Meals.all, input_html: { multiple: true } %>
+    <%= f.input :price_init, label: 'Price' %>
+
+    <%= f.submit 'Create Menu', class: 'btn btn-primary' %>
+  
+  <% end %>
+

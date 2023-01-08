@@ -1,6 +1,8 @@
-Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+# frozen_string_literal: true
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+Rails.application.routes.draw do
+  resources :meals, only: %i[new create show]
+  root to: 'welcome#index'
+  resources :categories, only: %i[new create show]
+  resources :menus, only: %i[new create show]
 end
