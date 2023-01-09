@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_08_221556) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_09_165711) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", comment: "category title"
     t.datetime "created_at", null: false
@@ -30,6 +30,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_221556) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_meals_on_category_id"
     t.index ["title"], name: "index_meals_on_title", unique: true
+  end
+
+  create_table "menus", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", comment: "menu title"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_menus_on_title", unique: true
   end
 
   add_foreign_key "meals", "categories"

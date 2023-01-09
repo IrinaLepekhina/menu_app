@@ -7,16 +7,13 @@
 #     visit('/')
 #     click_on('New Menu')
 
-#     # fill_in('Title', with: 'NY menu 2023')
-#     # fill_in('Price', with: '134.5')
-
-#     # select('per unit', from: 'Price type') # by weight
-#     # select('Salat', from: 'Category')
+#     fill_in('Title', with: 'NY menu 23-24')
+#     fill_in('Date', with: '31.12.2023')
 
 #     click_on('Create Menu')
 
 #     expect(page).to have_content('Menu has been created')
-#     expect(Menu.last.title).to eq('NY menu 2023')
+#     expect(Menu.last.title).to eq('NY menu 23-24')
 #   end
 
 

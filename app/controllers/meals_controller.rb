@@ -23,4 +23,5 @@ class MealsController < ApplicationController
   end
 end
 
-# bin/rails g model meal title category_id:integer price_type price_init:decimal description:text promo:boolean cover_image
+# bin/rails g model meal title price_type price_init:decimal description:text promo:boolean cover_image
+# bin/rails g model menu title:uniq date:date
