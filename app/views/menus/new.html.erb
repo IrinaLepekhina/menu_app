@@ -1,8 +1,7 @@
-# <%= simple_form_for @menu do |f| %>
-#     <%= f.input :title%>
-#     <%= f.input :menu_date, as: :date, html5: true, label: 'Date'%>
+<%= simple_form_for @menu do |f| %>
+  <%= f.input :title%>
+  <%= f.input :date, as: :date, html5: true, label: 'Date'%>
 
-#     <%= f.submit 'Create Menu', class: 'btn btn-primary' %>
-  
-#   <% end %>
+  <%= f.submit 'Create Menu', class: 'btn btn-primary' %>
+<% end %>
 
