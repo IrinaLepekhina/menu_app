@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :menu do
-    title { "MyString" }
-    date { "2023-01-09" }
+    sequence(:title) { |n| "Menu #{n}"}
+    date { DateTime.new(2023,12,31) }
   end
 end

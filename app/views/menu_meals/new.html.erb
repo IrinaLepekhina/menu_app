@@ -1,5 +1,6 @@
 <%= simple_form_for @menu_meal do |f| %>
     <%= f.input :menu_id, collection: Menu.all, label_method: :title, value_method: :id, :prompt => 'Choose an existing Item', label: 'Menus' %>
-  
-    <%= f.submit 'Fill Menu', class: 'btn btn-primary' %>
+    <%= f.input :meal_id, collection: Meal.all, label_method: :title, value_method: :id, :prompt => 'Please select', label: 'Meals', multiple: true %>
+    <%= f.input :price, label: 'Price' %>
+    <%= f.submit 'Add meal', class: 'btn btn-primary' %>
 <% end %>

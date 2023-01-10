@@ -3,30 +3,35 @@
 require 'rails_helper'
 
 describe 'fill menu with meals' do
+  # menu = FactoryBot.create(:menu, title: 'I day')
+  # meal = FactoryBot.create(:meal, title: 'Seledka')
+  # meal = FactoryBot.create(:meal, title: 'Kakao')
+
   it 'fill new menu with selected meals' do
     visit('/')
     click_on('Fill Menu')
 
-    select('NY menu 23-24', from: 'Menus')
+    select('I day', from: 'Menus')
 
-    select('Olivie', from: 'Meals')
+    select('Seledka', from: 'Meals')
     fill_in('Price', with: '124,7')
 
-    select('Pashtet', from: 'Meals')
+    select('Kakao', from: 'Meals')
     fill_in('Price', with: '100,2')
 
-    click_on('Fill Menu')
+    click_on('Add meal')
 
     expect(page).to have_content('Menu was filled')
     # expect(Meal.last.title).to eq('Olivie')
   end
 
 
-#   it 'cannot create new meal with invalid date' do
-#     visit('/')
-#     click_on('New Meal')
+  it 'cannot fill menu with invalid date' do
+    visit('/')
+    click_on('Fill Menu')
 
-#     click_on('Create Meal')
-#     expect(page).to have_content("can't be blank")
-#   end
+    click_on('Add meal')
+
+    expect(page).to have_content("can't be blank")
+  end
 end

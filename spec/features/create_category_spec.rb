@@ -1,25 +1,23 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require_relative '../support/new_category_form.rb'
 
 describe 'create new category' do
-  it 'create new category with valid date' do
-    visit('/')
-    click_on('New Category')
-    fill_in('Title', with: 'Soup')
+  let(:new_category_form) { NewCategoryForm.new }
 
-    click_on('Create Category')
+  it 'create new category with valid date' do
+    new_category_form.visit_page.fill_in_with(
+      title: 'Soup'
+  ).submit
 
     expect(page).to have_content('Category has been created')
     expect(Category.last.title).to eq('Soup')
   end
 
-
   it 'cannot create new category with invalid date' do
-    visit('/')
-    click_on('New Category')
+    new_category_form.visit_page.submit
 
-    click_on('Create Category')
     expect(page).to have_content("can't be blank")
   end
 end

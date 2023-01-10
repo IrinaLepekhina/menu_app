@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :meal do
-    title { "MyString" }
-    price_type { "MyString" }
-    description { "MyText" }
+    sequence(:title) { |n| "Meal #{n}"}
+    price_type { "by_weight" }
+    description { "description" }
     promo { false }
-    cover_image { "MyString" }
-    price_init { "9.99" }
-    category { nil }
+    cover_image { "some_file.png" }
+    price_init { "200.5" }
+    category { Category.first }
   end
 end

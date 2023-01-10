@@ -22,3 +22,5 @@ class MenuMealsController < ApplicationController
       params.require(:menu_meal).permit(:menu_id, :meal_id, :price) 
     end
   end
+
+  # menu.menu_meals.create(meal: meal)
