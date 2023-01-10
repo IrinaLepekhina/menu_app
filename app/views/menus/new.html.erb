@@ -5,3 +5,10 @@
   <%= f.submit 'Create Menu', class: 'btn btn-primary' %>
 <% end %>
 
+<%= simple_form_for @menu_meal do |f| %>
+  <%= f.input :menu_id, collection: MenuMeal.all, label_method: :title, value_method: :id, :prompt => 'Choose an existing Item', label: 'Menus' %>
+
+  <%= f.submit 'Fill Menu', class: 'btn btn-primary' %>
+
+<% end %>
+
