@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_09_165711) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_010748) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", comment: "category title"
     t.datetime "created_at", null: false
@@ -32,6 +32,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_165711) do
     t.index ["title"], name: "index_meals_on_title", unique: true
   end
 
+  create_table "menu_meals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.bigint "meal_id", null: false
+    t.decimal "price", precision: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_menu_meals_on_meal_id"
+    t.index ["menu_id"], name: "index_menu_meals_on_menu_id"
+  end
+
   create_table "menus", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", comment: "menu title"
     t.date "date"
@@ -41,4 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_165711) do
   end
 
   add_foreign_key "meals", "categories"
+  add_foreign_key "menu_meals", "meals"
+  add_foreign_key "menu_meals", "menus"
 end
