@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../support/new_menu_form.rb'
+require_relative '../support/new_menu_form'
 
-describe 'create new menu' do
+describe 'create new ONLY menu' do
   let(:new_menu_form) { NewMenuForm.new }
 
   it 'create new menu with valid date' do
     new_menu_form.visit_page.fill_in_with(
       title: 'X day'
-  ).submit
+    ).submit
 
     expect(page).to have_content('Menu has been created')
     expect(Menu.last.title).to eq('X day')

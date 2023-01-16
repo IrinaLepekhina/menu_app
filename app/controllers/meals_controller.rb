@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class MealsController < ApplicationController
+  # before_action :prepare_category
+  # before_action :prepare_menu
+
   def show
     @meal = Meal.find(params[:id])
   end
@@ -18,10 +21,25 @@ class MealsController < ApplicationController
     end
   end
 
+  private
+
+  # def prepare_category
+  #   @category = Category.find(params[:category_id])
+  # end
+  # def prepare_menu
+  #   @menu = Menu.find(params[:menu_id])
+  # end
+
   def meal_params
-    params.require(:meal).permit(:title, :category_id, :price_type, :price_init, :description, :promo, :cover_image) 
+    params.require(:meal).permit(
+      :title,
+      :category_id,
+      :price_type,
+      :price_init,
+      :description,
+      :promo,
+      :cover_image,
+      menus_attributes: [:title, :date]
+    )
   end
 end
-
-# bin/rails g model meal title price_type price_init:decimal description:text promo:boolean cover_image
-# bin/rails g model menu title:uniq date:date

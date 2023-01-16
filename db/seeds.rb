@@ -8,7 +8,7 @@
 
 # meals = Meal.create([
 #   { title: "Tea", price_type: 1, price_init: 200.5, category_id: 0 },
-#   { title: "Olivie", price_type: 0, price_init: 100.5, category_id: 1 }, 
+#   { title: "Olivie", price_type: 0, price_init: 100.5, category_id: 1 },
 #   { title: "Fried meat", price_type: 1, price_init: 300.5, category_id: 1 }])
 
 # categories = Category.create([{ title: "Salat" }, { title: "Main dish" }])

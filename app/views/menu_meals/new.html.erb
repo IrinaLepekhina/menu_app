@@ -1,6 +1,9 @@
 <%= simple_form_for @menu_meal do |f| %>
-    <%= f.input :menu_id, collection: Menu.all, label_method: :title, value_method: :id, :prompt => 'Choose an existing Item', label: 'Menus' %>
-    <%= f.input :meal_id, collection: Meal.all, label_method: :title, value_method: :id, :prompt => 'Please select', label: 'Meals', multiple: true %>
+    <%= f.association :menu, label: 'Menus' %>
+    <%= f.association :meal, label: 'Meals' %>
     <%= f.input :price, label: 'Price' %>
     <%= f.submit 'Add meal', class: 'btn btn-primary' %>
 <% end %>
+
+# , as: :radio_buttons
+# , input_html: { multiple: true },  as: :check_boxes 

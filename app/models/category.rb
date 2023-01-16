@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-    has_many :meals
-    validates :title, presence: true
+  has_many :meals, dependent: :destroy
+  validates :title, presence: true
 end

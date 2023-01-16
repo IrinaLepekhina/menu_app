@@ -7,7 +7,7 @@ class NewCategoryForm
     self
   end
 
-  def fill_in_with(params = {})
+  def fill_in_with(_params = {})
     fill_in('Title', with: 'Soup')
     self
   end
@@ -17,3 +17,6 @@ class NewCategoryForm
     self
   end
 end
+
+# _id, collection: Meal.all, label_method: :title, value_method: :id, label: 'Meals'
+# _id, collection: Menu.all, label_method: :title, value_method: :id, :prompt => 'Choose an existing Item',

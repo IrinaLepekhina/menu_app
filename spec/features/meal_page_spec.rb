@@ -1,13 +1,29 @@
-# # frozen_string_literal: true
+# frozen_string_literal: true
 
-# require 'rails_helper'
+require 'rails_helper'
 
-# describe 'achievement page' do
+# meal = FactoryBot.create
 
-#   it 'achievement public page' do
-#     achievement = Achievement.create(title: 'Just did it')
-#     visit("/achievements/#{achievement.id}")
+describe 'meal page' do
+  it 'meal public page' do
+    # meal = Meal.create(title: 'Just did it', category_id: 3)
+    meal = FactoryBot.create(:meal, title: 'Just did it')
+    visit("/meals/#{meal.id}")
 
-#     expect(page).to have_content('Just did it')
-#   end
-# end
+    expect(page).to have_content('Just did it')
+
+    meals = FactoryBot.create_list(:meal, 3)
+    p meals
+  end
+
+
+# doesnot search by tags, no difference between 'p', 'em'
+  it 'render markdown description' do
+    meal = FactoryBot.create(:meal, description: 'That *was* hard')
+    visit("/meals/#{meal.id}")
+
+    expect(page).to have_css('em', text: 'was')
+
+    # expect(page).to have_content('<em>was</em>')
+  end
+end

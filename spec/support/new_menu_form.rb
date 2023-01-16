@@ -7,8 +7,8 @@ class NewMenuForm
     self
   end
 
-  def fill_in_with(params = {})
-    fill_in('Title', with: 'X day')
+  def fill_in_with(_params = {})
+    fill_in('Menu title', with: 'X day')
     fill_in('Date', with: '08.03.2023')
     self
   end

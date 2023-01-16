@@ -13,7 +13,7 @@ gem 'cssbundling-rails'
 gem 'jbuilder'
 gem 'bootsnap', require: false
 
-gem 'redcarpet'
+gem 'redcarpet', github: "vmg/redcarpet", branch: "master"
 gem 'simple_form'
 
 gem 'haml-rails'

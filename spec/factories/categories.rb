@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :category do
-    sequence(:title) { |n| "Category #{n}"}
+    sequence(:title) { |n| "Category #{n}" }
   end
 end
-
-

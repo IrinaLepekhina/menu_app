@@ -7,6 +7,8 @@ describe 'fill menu with meals' do
   # meal = FactoryBot.create(:meal, title: 'Seledka')
   # meal = FactoryBot.create(:meal, title: 'Kakao')
 
+  ## implement factory
+
   it 'fill new menu with selected meals' do
     visit('/')
     click_on('Fill Menu')
@@ -16,15 +18,11 @@ describe 'fill menu with meals' do
     select('Seledka', from: 'Meals')
     fill_in('Price', with: '124,7')
 
-    select('Kakao', from: 'Meals')
-    fill_in('Price', with: '100,2')
-
     click_on('Add meal')
 
     expect(page).to have_content('Menu was filled')
     # expect(Meal.last.title).to eq('Olivie')
   end
-
 
   it 'cannot fill menu with invalid date' do
     visit('/')

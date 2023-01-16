@@ -7,12 +7,12 @@ class NewMealForm
     self
   end
 
-  def fill_in_with(params = {})
+  def fill_in_with(_params = {})
     fill_in('Title', with: 'Milk')
     fill_in('Price', with: '134.5')
     fill_in('Description', with: 'Cow milk')
     check('Promo meal')
-    attach_file('Cover image', "#{Rails.root}/spec/fixtures/cover_image.png")
+    attach_file('Cover image', Rails.root.join('spec/fixtures/cover_image.png'))
     select('per unit', from: 'Price type') # by weight
     select('Drink', from: 'Category')
     self
