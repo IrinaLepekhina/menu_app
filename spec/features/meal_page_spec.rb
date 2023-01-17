@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-# meal = FactoryBot.create
-
 describe 'meal page' do
   it 'meal public page' do
     # meal = Meal.create(title: 'Just did it', category_id: 3)
@@ -12,10 +10,9 @@ describe 'meal page' do
 
     expect(page).to have_content('Just did it')
 
-    meals = FactoryBot.create_list(:meal, 3)
-    p meals
+    # meals = FactoryBot.create_list(:by_weight, 3)
+    # p meals.inspect
   end
-
 
 # doesnot search by tags, no difference between 'p', 'em'
   it 'render markdown description' do

@@ -18,7 +18,7 @@ describe  MealsController do
 
 
   describe "GET show" do
-    let(:meal) { FactoryBot.create(:per_unit_meal)}
+    let(:meal) { FactoryBot.create(:meal)}
 
     it "renders :show template" do
       get :show,  params: { id: meal } #{ id: meal.id }
@@ -32,9 +32,16 @@ describe  MealsController do
   end
 
   describe "POST create" do
+    let(:meal) { FactoryBot.build(:meal) }
     it "redirects to meals#show" do
+      post :create, params: { meal: { 
+        title: meal.title,
+        price_init: meal.price_init,
+        price_type: meal.price_type,
+        category_id: meal.category_id
+      }}
 
-      post :create, meal: FactoryBot.attributes_for(:meal)
+      # post :create, meal: FactoryBot.attributes_for(:by_weight)
       expect(response).to redirect_to(meal_path(assigns[:meal]))
     end
 
@@ -43,3 +50,5 @@ describe  MealsController do
 
   end
 end
+
+

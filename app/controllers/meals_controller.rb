@@ -15,7 +15,8 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new(meal_params)
     if @meal.save
-      redirect_to root_url, notice: 'Meal has been created'
+
+      redirect_to meal_url(@meal), notice: 'Meal has been created'
     else
       render :new
     end

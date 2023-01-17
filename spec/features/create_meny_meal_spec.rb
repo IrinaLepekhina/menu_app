@@ -3,10 +3,6 @@
 require 'rails_helper'
 
 describe 'fill menu with meals' do
-  # menu = FactoryBot.create(:menu, title: 'I day')
-  # meal = FactoryBot.create(:meal, title: 'Seledka')
-  # meal = FactoryBot.create(:meal, title: 'Kakao')
-
   ## implement factory
 
   it 'fill new menu with selected meals' do

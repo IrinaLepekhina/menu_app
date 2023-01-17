@@ -9,10 +9,6 @@ Rails.application.routes.draw do
   resources :menu_meals, only: %i[new create show]
 end
 
-# resources :menu, only: [:new, :create, :show] do
-#   resources :meals, only [:create, :edit, :update]
-# end
-
 # # writing routes that communicates the application's design
 
 # resources :products, only: [:index, :show]

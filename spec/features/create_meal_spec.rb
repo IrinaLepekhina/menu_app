@@ -5,7 +5,6 @@ require_relative '../support/new_meal_form'
 
 describe 'create new meal' do
   let(:new_meal_form) { NewMealForm.new }
-  # category = FactoryBot.create(:category, title: 'juce')
 
   it 'create new meal with valid date' do
     new_meal_form.visit_page.fill_in_with(

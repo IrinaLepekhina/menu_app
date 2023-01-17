@@ -6,8 +6,9 @@ class Meal < ApplicationRecord
   accepts_nested_attributes_for :menus
 
   validates :title, presence: true
+  validates :price_type, presence: true
 
-  enum price_type: { per_unit: 0, by_weight: 1 }
+  enum :price_type, [ :per_unit, :by_weight ] #, default: :per_unit
 
   def description_html
     ### add check - if exists/not nul

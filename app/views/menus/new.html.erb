@@ -1,30 +1,21 @@
+<h3>Menu:</h3>
+
 <%= simple_form_for @menu do |f| %>
   <%= f.input :title, label: 'Menu title' %>
   <%= f.input :date, as: :date, html5: true, label: 'Date'%>
   <br/>
   <%= f.submit 'Create Menu', class: 'btn btn-primary' %>
-  <br/>
-  
+
   <h3>Meal:</h3>
 
   <%= f.simple_fields_for :meals, @menu.meals.build do |meals_form| %>
-    <div id='fieldsetContainer'>
-      <fieldset id="0" class="text-indigo-500">
-
-        <%= meals_form.input :title, list: "meals_autocomplete", label: 'Meal title' %>
-          <datalist id="meals_autocomplete">
-            <% Meal.all.each do |meal| %>
-              <option value="<%= meal.title %>">
-            <% end %>
-          </datalist>
-        <%= meals_form.association :category, :prompt => 'Choose an existing Item', label: 'Category' %>
-        <%= meals_form.input :price_type, collection: Meal.price_types.map { |k,v| [ k.split('_').join(' '), k ]} %>
-        <%= meals_form.input :price_init, label: 'Price' %>
-        <br/>
-
-        <%= f.submit 'Add another meal', class: 'btn btn-primary' %>
-   
-      </fieldset>
-    </div>
+    <%= meals_form.input :title, list: "meals_autocomplete", label: 'Meal title' %>
+    <%= meals_form.association :category, :prompt => 'Choose an existing Item', label: 'Category' %>
+    <%= meals_form.input :price_type, collection: Meal.price_types.map { |k,v| [ k.split('_').join(' '), k ]} %>
+    <%= meals_form.input :price_init, label: 'Price' %>
+    <br/>
+    <%= f.submit 'Add another meal', class: 'btn btn-primary' %>
   <% end %>
 <% end %>
+
+
