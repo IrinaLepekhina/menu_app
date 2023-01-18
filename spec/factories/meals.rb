@@ -2,16 +2,18 @@ FactoryBot.define do
   factory :meal do
     sequence(:title) { |n| "Meal #{n}" }
     description { "description" }
-    price_type { :per_unit }
     promo { false }
     cover_image { "some_file.png" }
     price_init { "200.5" }
-    category { Category.all.sample }
+    category_id { Category.all.sample.id }
 
     # subfactory
-    factory :by_weight do
-      sequence(:title) { |n| "Meal #{n} by_weight" }
+    factory :by_weight_meal do
       price_type { :by_weight }
+    end
+
+    factory :per_unit_meal do
+      price_type { :per_unit }
     end
   end
 end

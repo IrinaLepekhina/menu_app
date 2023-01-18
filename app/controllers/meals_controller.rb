@@ -8,6 +8,25 @@ class MealsController < ApplicationController
     @meal = Meal.find(params[:id])
   end
 
+  def edit
+    @meal = Meal.find(params[:id])
+  end
+
+  def update
+    @meal = Meal.find(params[:id])
+
+    if @meal.update(meal_params)
+      redirect_to meal_path(@meal)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    Meal.destroy(params[:id])
+    redirect_to meals_path
+  end
+
   def new
     @meal = Meal.new
   end
@@ -15,21 +34,17 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new(meal_params)
     if @meal.save
-
       redirect_to meal_url(@meal), notice: 'Meal has been created'
     else
       render :new
     end
   end
 
-  private
+  def index
+    @meals = Meal.all
+  end
 
-  # def prepare_category
-  #   @category = Category.find(params[:category_id])
-  # end
-  # def prepare_menu
-  #   @menu = Menu.find(params[:menu_id])
-  # end
+  private
 
   def meal_params
     params.require(:meal).permit(
@@ -44,3 +59,10 @@ class MealsController < ApplicationController
     )
   end
 end
+
+  # def prepare_category
+  #   @category = Category.find(params[:category_id])
+  # end
+  # def prepare_menu
+  #   @menu = Menu.find(params[:menu_id])
+  # end
