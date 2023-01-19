@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :categories, only: %i[new create show]
   resources :menus, only: %i[new create show]
   resources :menu_meals, only: %i[new create show]
+  resources :users, only: %i[new create show]
 end

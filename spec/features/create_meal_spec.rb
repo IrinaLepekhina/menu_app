@@ -8,11 +8,11 @@ describe 'create new meal' do
 
   it 'create new meal with valid date' do
     new_meal_form.visit_page.fill_in_with(
-      title: 'Milk'
+      title: 'Okroshka'
     ).submit
 
     expect(page).to have_content('Meal has been created')
-    expect(Meal.last.title).to eq('Milk')
+    expect(Meal.last.title).to eq('Okroshka')
   end
 
   it 'cannot create new meal with invalid date' do

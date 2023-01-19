@@ -11,6 +11,6 @@
 #   { title: "Olivie", price_type: 0, price_init: 100.5, category_id: 1 },
 #   { title: "Fried meat", price_type: 1, price_init: 300.5, category_id: 1 }])
 
-# categories = Category.create([{ title: "Salat" }, { title: "Main dish" }])
+categories = Category.create([{ title: "Salat" }, { title: "Main dish" }])
 
 # menus = Menu.create([{ title: "NY menu 23-24" ,  date: DateTime.new(2023,12,31), }, { title: "Easter" ,  date: DateTime.new(2023, 04,16)  }])
