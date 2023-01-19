@@ -9,7 +9,7 @@ class NewUserForm
   
     def fill_in_with(_params = {})
       fill_in('name', with: 'My Name')
-      fill_in('email', with: 'email@email')
+      fill_in('email', with: '0_email@email')
       fill_in('nickname', with: 'my_name')
       
       # fill_in('password', with: 'password123')

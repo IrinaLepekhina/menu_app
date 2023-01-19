@@ -8,11 +8,11 @@
   
     it 'create new user with valid date' do
       new_user_form.visit_page.fill_in_with(
-        email: 'email@email'
+        email: '0_email@email'
       ).submit
   
       expect(page).to have_content('User has been created')
-      expect(User.last.email).to eq('email@email')
+      expect(User.last.email).to eq('0_email@email')
     end
   
     it 'cannot create new user with invalid date' do

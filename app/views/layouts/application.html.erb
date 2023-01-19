@@ -27,6 +27,7 @@
               <li class="nav-item" ><%= link_to ' New Menu ', new_menu_path, class: "nav-link" %></li>
               <li class="nav-item" ><%= link_to ' Fill Menu ', new_menu_meal_path, class: "nav-link" %></li>
               <li class="nav-item" ><%= link_to ' New User ', new_user_path, class: "nav-link" %></li>
+              <li class="nav-item" ><%= link_to ' Login ', new_session_path, class: "nav-link" %></li>
             </ul>
           </div>
         </div>
@@ -34,6 +35,10 @@
 
       <% if flash[:notice] %>
         <div class="alert alert-info"><%= flash[:notice] %></div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-info"><%= flash[:alert] %></div>
       <% end %>
     
       <%= yield %>
