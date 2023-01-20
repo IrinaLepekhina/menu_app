@@ -8,7 +8,7 @@ class NewSessionForm
     end
   
     def fill_in_with(_params = {})
-      fill_in('email', with: 'email@email')
+      fill_in('email', with: 'email@1')
       
       # fill_in('password', with: 'password123')
 
