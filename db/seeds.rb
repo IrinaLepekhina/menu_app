@@ -15,8 +15,4 @@
 
 # menus = Menu.create([{ title: "NY menu 23-24" ,  date: DateTime.new(2023,12,31), }, { title: "Easter" ,  date: DateTime.new(2023, 04,16)  }])
 
-users = User.create([{ 
-  name: "User1",
-  nickname: 'user101',
-  email: 'email@email'
-}])
+# users = User.create([{ name: "User1", nickname: 'user101', email: 'email@email }])

@@ -12,8 +12,7 @@ class NewUserForm
       fill_in('email', with: '0_email@email')
       fill_in('nickname', with: 'my_name')
       
-      # fill_in('password', with: 'password123')
-      # fill_in('password', with: 'password123')
+      fill_in('password', with: 'very_secure')
 
       self
     end

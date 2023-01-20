@@ -7,10 +7,10 @@ class NewSessionForm
       self
     end
   
-    def fill_in_with(_params = {})
-      fill_in('email', with: 'email@1')
+    def fill_in_with(params = {})
+      fill_in('email', with: params.fetch(:email, 'email@x'))
       
-      # fill_in('password', with: 'password123')
+      fill_in('password', with: 'password123')
 
       self
     end

@@ -13,6 +13,8 @@
   
       expect(page).to have_content('User has been created')
       expect(User.last.email).to eq('0_email@email')
+      expect( BCrypt::Password.new(User.last.password_digest) == 'very_secure').to be_truthy
+
     end
   
     it 'cannot create new user with invalid date' do

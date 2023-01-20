@@ -13,6 +13,8 @@ gem 'cssbundling-rails'
 gem 'jbuilder'
 gem 'bootsnap', require: false
 
+gem 'bcrypt'
+
 gem 'redcarpet', github: "vmg/redcarpet", branch: "master"
 gem 'simple_form'
 

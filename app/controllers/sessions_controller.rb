@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.find_by(email: user_params[:email])
+    user = User.find_by(email: user_params[:email])&.authenticate(user_params[:password])
+
     if user.present?
       session[:user_id] = user.id
       redirect_to root_url, notice: 'you are logged in'
@@ -16,12 +17,15 @@ class SessionsController < ApplicationController
     end
   end
   
-  def show
+  def destroy
+    session.delete(:user_id)
+
+    redirect_to root_url, notice: 'buy-buy'
   end
     
   private
 
   def user_params
-    params.require(:session).permit(:email)
+    params.require(:session).permit(:email, :password)
   end
 end

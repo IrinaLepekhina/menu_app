@@ -6,24 +6,25 @@
   describe 'create new session' do
     let(:new_session_form) { NewSessionForm.new }
  
-    let(:user) { FactoryBot.create(:user, email: 'email@1', nickname: 'ready_user_x') }
+    let(:user) { FactoryBot.create(:user, email: 'first@email', nickname: 'ready_user_one', password: 'password123') }
 
     it 'user is logged in with valid date' do
       user.reload
       new_session_form.visit_page.fill_in_with(
-        email: 'email@1'
+        email: 'first@email'
       ).submit
   
       expect(page).to have_content('you are logged in')
   
-      expect(page).to have_content("@ready_user_x")
-      expect(page).to have_link("Logout")
-      expect(page).to_not have_link("New User")
-      expect(page).to_not have_link("Login")
+      expect(page).to have_content('@ready_user_one')
+      expect(page).to have_button('Logout')
+      expect(page).to_not have_link('New User')
+      expect(page).to_not have_link('Login')
     end
   
-    it 'user cannot log in with invalid date' do
+    it 'user cannot login with invalid date' do
       new_session_form.visit_page.submit
-      expect(page).to have_content("incorrect password or email")
+      # add wrong password
+      expect(page).to have_content('incorrect password or email')
     end
   end
