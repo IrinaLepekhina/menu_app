@@ -3,6 +3,7 @@
 class MealsController < ApplicationController
   # before_action :prepare_category
   # before_action :prepare_menu
+  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
 
   def show
     @meal = Meal.find(params[:id])
