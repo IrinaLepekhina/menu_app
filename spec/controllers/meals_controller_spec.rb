@@ -3,21 +3,81 @@
 require 'rails_helper'
 
 describe  MealsController do
-  #read
-  describe "GET index" do
-    it "renders :index template" do
-      get :index
-      expect(response).to render_template(:index)
+  describe "guest user" do
+    describe "GET index" do
+      it "renders :index template" do
+        get :index
+        expect(response).to render_template(:index)
+      end
+  
+      it "assigns meals to template" do
+        by_weight_meal = FactoryBot.create(:by_weight_meal)
+        per_unit_meal = FactoryBot.create(:per_unit_meal)
+  
+        get :index
+        expect(assigns(:meals)).to match_array([by_weight_meal] + [per_unit_meal])
+      end
     end
 
-    it "assigns meals to template" do
-      by_weight_meal = FactoryBot.create(:by_weight_meal)
-      per_unit_meal = FactoryBot.create(:per_unit_meal)
+    describe "GET show" do
+      let(:meal) { FactoryBot.create(:per_unit_meal)}
+  
+      it "renders :show template" do
+        get :show,  params: { id: meal } #{ id: meal.id }
+        expect(response).to render_template(:show)
+      end
+  
+      it "assigns requested meal to @meal" do
+        get :show,  params: { id: meal }
+        expect(assigns(:meal)).to eq(meal)
+      end
+    end
 
-      get :index
-      expect(assigns(:meals)).to match_array([by_weight_meal] + [per_unit_meal])
+    describe "GET new" do
+      it 'redirects to login page' do
+        get :new
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "POST cteate" do
+      let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal) }
+
+      it 'redirects to login page' do
+        post :create, params: { meal: valid_data }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "GET edit" do
+      let(:meal) { FactoryBot.create(:per_unit_meal)}
+
+      it 'redirects to login page' do
+        get :edit,  params: { id: meal} #{ id: meal.id }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+        
+    describe "PUT update" do
+      let(:meal) { FactoryBot.create(:by_weight_meal) }
+      let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal, title: "New Title")}
+
+      it 'redirects to login page' do
+        put :update,  params: { id: meal, meal: valid_data }
+        expect(response).to redirect_to(new_session_path)
+      end
+    end
+
+    describe "DELETE destroy" do
+      let(:meal) { FactoryBot.create(:by_weight_meal) }
+  
+      it 'redirects to login page' do
+        delete :destroy, params: { id: meal }
+        expect(response).to redirect_to(new_session_path)
+      end
     end
   end
+
 
   describe "GET edit" do
     let(:meal) { FactoryBot.create(:per_unit_meal)}
@@ -45,19 +105,7 @@ describe  MealsController do
     end
   end
 
-  describe "GET show" do
-    let(:meal) { FactoryBot.create(:per_unit_meal)}
 
-    it "renders :show template" do
-      get :show,  params: { id: meal } #{ id: meal.id }
-      expect(response).to render_template(:show)
-    end
-
-    it "assigns requested meal to @meal" do
-      get :show,  params: { id: meal }
-      expect(assigns(:meal)).to eq(meal)
-    end
-  end
 
   describe "POST create" do
 
