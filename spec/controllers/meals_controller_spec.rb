@@ -79,113 +79,121 @@ describe  MealsController do
   end
 
   describe "authenticated user" do
-    # describe "GET edit" do
-    #   let(:meal) { FactoryBot.create(:per_unit_meal)}
-  
-    #   it "renders :edit template" do
-    #     get :edit,  params: { id: meal} #{ id: meal.id }
-    #     expect(response).to render_template(:edit)
-    #   end
-  
-    #   it "assigns requested meal to template" do
-    #     get :edit,  params: { id: meal }
-    #     expect(assigns(:meal)).to eq(meal)
-    #   end
-    # end
-  
-    # describe "GET new" do
-    #   it "renders :new template" do
-    #     get :new
-    #     expect(response).to render_template(:new)
-    #   end
-  
-    #   it "assigns new Meal to @meal/to template" do
-    #       get :new
-    #       expect(assigns(:meal)).to be_a_new(Meal)
-    #   end
-    # end
     
-    # describe "POST create" do
+    let(:user) { FactoryBot.create(:user, password: 'password123') }
+
+    before do
+      user&.authenticate('password123')
+      request.session[:user_id] = user.id
+    end
+
+    describe "GET edit" do
+      let(:meal) { FactoryBot.create(:per_unit_meal)}
   
-    #   let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal) }
-    #   context "valid data" do
+      it "renders :edit template" do
+        get :edit,  params: { id: meal} #{ id: meal.id }
+        expect(response).to render_template(:edit)
+      end
   
-    #     it "redirects to meals#show" do
-    #       post :create, params: { meal: valid_data }
-    #       expect(response).to redirect_to(meal_path(assigns[:meal]))
-    #     end
+      it "assigns requested meal to template" do
+        get :edit,  params: { id: meal }
+        expect(assigns(:meal)).to eq(meal)
+      end
+    end
   
-    #     it "creates new meal in database" do
-    #       expect {
-    #         post :create, params: {  meal: valid_data }
-    #       }.to change(Meal, :count).by(1)
-    #     end
-    #   end
+    describe "GET new" do
+      it "renders :new template" do
+        get :new
+        expect(response).to render_template(:new)
+      end
   
-    #   context "invalid data" do
-    #     let(:invalid_data) { FactoryBot.attributes_for(:by_weight_meal, title: '') }
+      it "assigns new Meal to @meal/to template" do
+          get :new
+          expect(assigns(:meal)).to be_a_new(Meal)
+      end
+    end
+    
+    describe "POST create" do
   
-    #     it "renders :new template" do
-    #       post :create, params: { meal: invalid_data }
-    #       expect(response).to render_template(:new)
-    #     end
+      let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal) }
+      context "valid data" do
   
-    #     it "doesn't create new meal in database" do
-    #       expect {
-    #         post :create, params: { meal: invalid_data }
-    #       }.not_to change(Meal, :count)
-    #     end
-    #   end
-    # end
+        it "redirects to meals#show" do
+          post :create, params: { meal: valid_data }
+          expect(response).to redirect_to(meal_path(assigns[:meal]))
+        end
   
-    # describe "PUT update" do
-    #   let(:meal) { FactoryBot.create(:by_weight_meal) }
+        it "creates new meal in database" do
+          expect {
+            post :create, params: {  meal: valid_data }
+          }.to change(Meal, :count).by(1)
+        end
+      end
   
-    #   context "valid data" do
-    #     let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal, title: "New Title")}
+      context "invalid data" do
+        let(:invalid_data) { FactoryBot.attributes_for(:by_weight_meal, title: '') }
   
-    #     it "redirects to meals#show" do
-    #       put :update,  params: { id: meal, meal: valid_data }
-    #       expect(response).to redirect_to(meal)
-    #     end
+        it "renders :new template" do
+          post :create, params: { meal: invalid_data }
+          expect(response).to render_template(:new)
+        end
   
-    #     it "updates meal in database" do
-    #       put :update,  params: { id: meal, meal: valid_data }
-    #       meal.reload
-    #       expect(meal.title).to eq("New Title")
-    #     end
-    #   end
+        it "doesn't create new meal in database" do
+          expect {
+            post :create, params: { meal: invalid_data }
+          }.not_to change(Meal, :count)
+        end
+      end
+    end
   
-    #   context "invalid data" do
-    #     let(:invalid_data) { FactoryBot.attributes_for(:by_weight_meal, title: '', description: 'new') }
+    describe "PUT update" do
+      let(:meal) { FactoryBot.create(:by_weight_meal) }
   
-    #     it "renders :edit template" do
-    #       put :update,  params: { id: meal, meal: invalid_data }
-    #       expect(response).to render_template(:edit)
-    #     end
+      context "valid data" do
+        let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal, title: "New Title")}
   
-    #     it "doesn't updates meal in database" do
-    #       put :update,  params: { id: meal, meal: invalid_data }
-    #       meal.reload
-    #       expect(meal.title).not_to eq("New Title")
-    #     end
-    #   end
-    # end
+        it "redirects to meals#show" do
+          put :update,  params: { id: meal, meal: valid_data }
+          expect(response).to redirect_to(meal)
+        end
   
-    # describe "DELETE destroy" do
-    #   let(:meal) { FactoryBot.create(:by_weight_meal) }
+        it "updates meal in database" do
+          put :update,  params: { id: meal, meal: valid_data }
+          meal.reload
+          expect(meal.title).to eq("New Title")
+        end
+      end
   
-    #   it "redirects to meals#index" do
-    #     delete :destroy, params: { id: meal }
-    #     expect(response).to redirect_to(meals_path)
-    #   end
+      context "invalid data" do
+        let(:invalid_data) { FactoryBot.attributes_for(:by_weight_meal, title: '', description: 'new') }
   
-    #   it "deletes meal from database" do
-    #     delete :destroy, params: { id: meal }
-    #     expect(Meal.exists?(meal.id)).to be_falsy
-    #   end
+        it "renders :edit template" do
+          put :update,  params: { id: meal, meal: invalid_data }
+          expect(response).to render_template(:edit)
+        end
   
-    # end
+        it "doesn't updates meal in database" do
+          put :update,  params: { id: meal, meal: invalid_data }
+          meal.reload
+          expect(meal.title).not_to eq("New Title")
+        end
+      end
+    end
+  
+    describe "DELETE destroy" do
+      let(:meal) { FactoryBot.create(:by_weight_meal) }
+  
+      it "redirects to meals#index" do
+        delete :destroy, params: { id: meal }
+        expect(response).to redirect_to(meals_path)
+      end
+  
+      it "deletes meal from database" do
+        delete :destroy, params: { id: meal }
+        expect(Meal.exists?(meal.id)).to be_falsy
+      end
+  
+    end
   end
 
 end
