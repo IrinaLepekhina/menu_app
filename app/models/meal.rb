@@ -7,7 +7,7 @@ class Meal < ApplicationRecord
 
   validates :title, presence: true
 
-  enum price_type: %i[ per_unit by_weight ]
+  enum price_type: { per_unit: 0, by_weight: 1 }
   validates :price_type, inclusion: { in: price_types.keys }
 
   def description_html

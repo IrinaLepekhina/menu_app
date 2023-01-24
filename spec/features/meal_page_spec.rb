@@ -3,13 +3,12 @@
 require 'rails_helper'
 
 describe 'meal page' do
-
   before do
-    category = FactoryBot.create(:category)
-   end
+    category = create(:category)
+  end
 
   it 'meal public page' do
-    meal = FactoryBot.create(:per_unit_meal, title: 'Just did it')
+    meal = create(:per_unit_meal, title: 'Just did it')
     visit("/meals/#{meal.id}")
 
     expect(page).to have_content('Just did it')
@@ -18,9 +17,9 @@ describe 'meal page' do
     # p meals.inspect
   end
 
-# doesnot search by tags, no difference between 'p', 'em'
+  # doesnot search by tags, no difference between 'p', 'em'
   it 'render markdown description' do
-    meal = FactoryBot.create(:per_unit_meal, description: 'That *was* hard')
+    meal = create(:per_unit_meal, description: 'That *was* hard')
     visit("/meals/#{meal.id}")
 
     expect(page).to have_css('em', text: 'was')

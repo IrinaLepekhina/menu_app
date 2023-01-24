@@ -5,12 +5,29 @@ class MealsController < ApplicationController
   # before_action :prepare_menu
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
 
+  def index
+    @meals = Meal.all
+  end
+
   def show
     @meal = Meal.find(params[:id])
   end
 
+  def new
+    @meal = Meal.new
+  end
+
   def edit
     @meal = Meal.find(params[:id])
+  end
+
+  def create
+    @meal = Meal.new(meal_params)
+    if @meal.save
+      redirect_to meal_url(@meal), notice: 'Meal has been created'
+    else
+      render :new
+    end
   end
 
   def update
@@ -26,23 +43,6 @@ class MealsController < ApplicationController
   def destroy
     Meal.destroy(params[:id])
     redirect_to meals_path
-  end
-
-  def new
-    @meal = Meal.new
-  end
-
-  def create
-    @meal = Meal.new(meal_params)
-    if @meal.save
-      redirect_to meal_url(@meal), notice: 'Meal has been created'
-    else
-      render :new
-    end
-  end
-
-  def index
-    @meals = Meal.all
   end
 
   private
@@ -61,9 +61,9 @@ class MealsController < ApplicationController
   end
 end
 
-  # def prepare_category
-  #   @category = Category.find(params[:category_id])
-  # end
-  # def prepare_menu
-  #   @menu = Menu.find(params[:menu_id])
-  # end
+# def prepare_category
+#   @category = Category.find(params[:category_id])
+# end
+# def prepare_menu
+#   @menu = Menu.find(params[:menu_id])
+# end

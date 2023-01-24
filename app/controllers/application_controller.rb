@@ -8,19 +8,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    unless current_user
-      if request.xhr?
-        render json: {msg: "Вы не авторизованы"}, status: 403            
-      else
-        redirect_to new_session_path
-      end
+    return if current_user
+
+    if request.xhr?
+      render json: { msg: "Вы не авторизованы" }, status: :forbidden
+    else
+      redirect_to new_session_path
     end
   end
-
 end
-
-
-
-
-
-
