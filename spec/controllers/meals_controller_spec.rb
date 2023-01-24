@@ -4,6 +4,10 @@ require 'rails_helper'
 
 describe  MealsController do
 
+  before do
+   category = FactoryBot.create(:category)
+  end
+
   shared_examples "public access to meals" do
     describe "GET index" do
       it "renders :index template" do

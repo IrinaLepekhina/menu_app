@@ -3,8 +3,12 @@
 require 'rails_helper'
 
 describe 'meal page' do
+
+  before do
+    category = FactoryBot.create(:category)
+   end
+
   it 'meal public page' do
-    # meal = Meal.create(title: 'Just did it', category_id: 3)
     meal = FactoryBot.create(:per_unit_meal, title: 'Just did it')
     visit("/meals/#{meal.id}")
 
@@ -20,7 +24,5 @@ describe 'meal page' do
     visit("/meals/#{meal.id}")
 
     expect(page).to have_css('em', text: 'was')
-
-    # expect(page).to have_content('<em>was</em>')
   end
 end

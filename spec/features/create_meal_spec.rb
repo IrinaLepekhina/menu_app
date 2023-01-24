@@ -9,11 +9,12 @@ describe 'create new meal NOT NESTED' do
   let(:new_meal_form) { NewMealForm.new }
   let(:login_form) { LoginForm.new }
   let(:user) { FactoryBot.create(:user) }
-
+  
   before do
     login_form.visit_page.login_as(user)
+    category = FactoryBot.create(:category, title: "Main dish")
   end
-
+  
   it 'create new meal with valid date' do
     new_meal_form.visit_page.fill_in_with(
       title: 'Okroshka'
