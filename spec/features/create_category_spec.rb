@@ -3,7 +3,7 @@
 require 'rails_helper'
 require_relative '../support/new_category_form'
 
-describe 'create new ONLY category' do
+describe 'create new category NOT NESTED' do
   let(:new_category_form) { NewCategoryForm.new }
 
   it 'create new category with valid date.' do

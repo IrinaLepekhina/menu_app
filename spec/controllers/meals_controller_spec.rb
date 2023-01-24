@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 describe  MealsController do
-  describe "guest user" do
+
+  shared_examples "public access to meals" do
     describe "GET index" do
       it "renders :index template" do
         get :index
         expect(response).to render_template(:index)
       end
-  
+      
       it "assigns meals to template" do
         by_weight_meal = FactoryBot.create(:by_weight_meal)
         per_unit_meal = FactoryBot.create(:per_unit_meal)
-  
         get :index
         expect(assigns(:meals)).to match_array([by_weight_meal] + [per_unit_meal])
       end
@@ -32,6 +32,11 @@ describe  MealsController do
         expect(assigns(:meal)).to eq(meal)
       end
     end
+  end
+
+  describe "guest user" do
+
+    it_behaves_like "public access to meals"
 
     describe "GET new" do
       it 'redirects to login page' do
@@ -40,7 +45,7 @@ describe  MealsController do
       end
     end
 
-    describe "POST cteate" do
+    describe "POST create" do
       let(:valid_data) { FactoryBot.attributes_for(:by_weight_meal) }
 
       it 'redirects to login page' do
@@ -86,6 +91,8 @@ describe  MealsController do
       user&.authenticate('password123')
       request.session[:user_id] = user.id
     end
+
+    it_behaves_like "public access to meals"
 
     describe "GET edit" do
       let(:meal) { FactoryBot.create(:per_unit_meal)}

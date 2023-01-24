@@ -1,4 +1,4 @@
-class NewSessionForm
+class LoginForm
   include Capybara::DSL
   
   def visit_page
@@ -8,9 +8,9 @@ class NewSessionForm
   end
   
   def login_as(user)
-    fill_in('email', with: params.fetch(:email, 'email@x'))
+    fill_in('email', with: user.email)
+    fill_in('password', with: user.password)
     
-    fill_in('password', with: 'password123')
     click_on('GO')
     self
   end

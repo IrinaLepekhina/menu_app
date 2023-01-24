@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../support/login_form'
 
 describe  SessionsController do
 	let(:user) { FactoryBot.create(:user, password: 'password123') }

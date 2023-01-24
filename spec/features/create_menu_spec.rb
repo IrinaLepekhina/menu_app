@@ -3,7 +3,7 @@
 require 'rails_helper'
 require_relative '../support/new_menu_form'
 
-describe 'create new ONLY menu' do
+describe 'create new menu NOT NESTED' do
   let(:new_menu_form) { NewMenuForm.new }
 
   it 'create new menu with valid date' do
