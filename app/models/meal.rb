@@ -3,12 +3,23 @@ class Meal < ApplicationRecord
 
   has_many :menu_meals, dependent: :destroy
   has_many :menus, through: :menu_meals
+  
   accepts_nested_attributes_for :menus
+  enum price_type: { per_unit: 0, by_weight: 1 }
 
   validates :title, presence: true
+  validates :title, uniqueness: true
 
-  enum price_type: { per_unit: 0, by_weight: 1 }
   validates :price_type, inclusion: { in: price_types.keys }
+
+  def silly_title
+    "#{title} from #{category.title}"
+  end
+
+  def self.by_letter(letter)
+    includes(:category).where("meals.title LIKE ?", "#{letter}%").order("categories.title")
+  end
+
 
   def description_html
     ### add check - if exists/not nul
