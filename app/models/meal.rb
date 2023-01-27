@@ -12,6 +12,8 @@ class Meal < ApplicationRecord
 
   validates :price_type, inclusion: { in: price_types.keys }
 
+  mount_uploader :cover_image, CoverImageUploader
+
   def silly_title
     "#{title} from #{category.title}"
   end

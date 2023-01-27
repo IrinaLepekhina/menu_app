@@ -16,9 +16,14 @@ gem 'bootsnap', require: false
 gem 'bcrypt'
 
 gem 'redcarpet', github: "vmg/redcarpet", branch: "master"
+gem 'carrierwave' #uploader
 gem 'simple_form'
 
 gem 'haml-rails'
+
+# good gems:
+# gem letter_opener
+# gem email-spec
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

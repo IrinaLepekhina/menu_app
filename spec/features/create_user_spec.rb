@@ -14,6 +14,9 @@ describe 'create new user' do
     expect(page).to have_content('User has been created')
     expect(User.last.email).to eq('0_email@email')
     expect(BCrypt::Password.new(User.last.password_digest) == 'very_secure').to be_truthy
+    
+    expect( ActionMailer::Base.deliveries.count).to eq(1)
+    expect( ActionMailer::Base.deliveries.last.to).to include(User.last.email)
   end
 
   it 'cannot create new user with invalid date' do

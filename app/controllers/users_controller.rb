@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      UserMailer.user_created(User.last.email, User.last.id).deliver_now
       redirect_to user_url(@user), notice: 'User has been created'
     else
       render :new

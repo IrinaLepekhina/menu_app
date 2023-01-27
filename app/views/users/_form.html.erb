@@ -1,5 +1,5 @@
 <%= simple_form_for user do |f| %>
-    <%= f.input :name %>
+    <%= f.input :name, label: 'name' %>
     <%= f.input :email, label: 'email' %>
     <%= f.input :nickname, label: 'nickname' %>
     <%= f.input :password, :required => true, input_html: { value: @user.password }, label: 'password' %>

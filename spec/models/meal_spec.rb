@@ -30,7 +30,6 @@ RSpec.describe Meal, type: :model do
   it 'only fetches meals which title starts from provided letter' do
     meal1 = FactoryBot.create(:per_unit_meal, title: "bread #{Random.rand(1000).to_s}", category: category)
     meal2 = FactoryBot.create(:per_unit_meal, title: "chease #{Random.rand(1000).to_s}", category: category)
-   debugger
     expect(Meal.by_letter("b")).to eq([meal1])
   end
 

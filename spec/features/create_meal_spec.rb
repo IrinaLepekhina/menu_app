@@ -16,9 +16,11 @@ describe 'create new meal NOT NESTED' do
 
   it 'create new meal with valid date' do
     new_meal_form.visit_page.fill_in_with(
-      title: 'Okroshka'
+      title: 'Okroshka',
+      cover_image: 'cover_image.png'
     ).submit
 
+    expect(Meal.last.cover_image_identifier).to eq ('cover_image.png')
     expect(page).to have_content('Meal has been created')
     expect(Meal.last.title).to eq('Okroshka')
   end
