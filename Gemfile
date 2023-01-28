@@ -16,10 +16,11 @@ gem 'bootsnap', require: false
 gem 'bcrypt'
 
 gem 'redcarpet', github: "vmg/redcarpet", branch: "master"
-gem 'carrierwave' #uploader
+gem 'carrierwave' # uploader
 gem 'simple_form'
 
 gem 'haml-rails'
+gem 'active_model_serializers'
 
 # good gems:
 # gem letter_opener

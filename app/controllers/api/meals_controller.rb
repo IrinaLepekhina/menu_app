@@ -1,4 +1,6 @@
-class Api::MealsController < ApplicationController
+class Api::MealsController < ApiController
   def index
-	end
+    meals = Meal.all
+    render json: meals
+  end
 end

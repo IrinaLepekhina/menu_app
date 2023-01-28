@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resource :session, only: %i[new create destroy]
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     resources :meals, only: %i[index]
   end
 end

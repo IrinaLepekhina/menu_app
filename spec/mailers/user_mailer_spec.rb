@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe UserMailer, type: :mailer do
+RSpec.describe UserMailer do
   include Rails.application.routes.url_helpers
 
   let(:user_id) { 1 }
-  let(:email) { UserMailer.user_created('new_user@email.com', user_id).deliver_now }
-    
+  let(:email) { described_class.user_created('new_user@email.com', user_id).deliver_now }
+
   it 'sends user created email to new_user' do
     expect(email.to).to include('new_user@email.com')
   end

@@ -3,7 +3,7 @@ class Meal < ApplicationRecord
 
   has_many :menu_meals, dependent: :destroy
   has_many :menus, through: :menu_meals
-  
+
   accepts_nested_attributes_for :menus
   enum price_type: { per_unit: 0, by_weight: 1 }
 
@@ -21,7 +21,6 @@ class Meal < ApplicationRecord
   def self.by_letter(letter)
     includes(:category).where("meals.title LIKE ?", "#{letter}%").order("categories.title")
   end
-
 
   def description_html
     ### add check - if exists/not nul
