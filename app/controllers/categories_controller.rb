@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   def new
     @category = Category.new
-    @category.meals.build
+    @category.meals.build #3.times { @category.meals.build }
   end
 
   def create
@@ -18,15 +18,16 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(
-      :title,
+    params.require(:category)
+    .permit(:title,
       meals_attributes: [
-        :title, :category_id,
-        :price_type, :price_init,
-        :description, :promo,
+        :title, 
+        :price_type, 
+        :price_init,
+        :description, 
+        :promo,
         :cover_image
-      ]
-    )
+      ])
   end
 
   # def show
