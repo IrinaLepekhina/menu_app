@@ -1,19 +1,3 @@
 <h2>New category</h2>
 
-<%= simple_form_for @category do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :title%>  
-
-  <h2>New meal</h2>
-
-  <%= f.simple_fields_for :meals do |builder| %>
-    <%= builder.input :title%>
-    <%= builder.input :price_type, collection: Meal.price_types.map { |k,v| [ k.split('_').join(' '), k ]} %>
-    <%= builder.input :description %>
-    <%= builder.input :promo, label: 'Promo meal' %>
-    <%= builder.input :cover_image, as: :file %>
-    <%= builder.input :price_init, label: 'Price' %>
-  <% end %>
-
-  <%= f.submit 'Create Category', class: 'btn btn-primary' %>
-<% end %>
+<%= render 'form', category: @category %>

@@ -1,0 +1,13 @@
+<%= simple_form_for @category do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title%>  
+
+  <%= f.simple_fields_for :meals do |builder| %>
+    <%= render 'meal_fields', meal: @meal %>
+  <% end %>
+
+  <%= f.submit 'Create Category', class: 'btn btn-primary' %>
+<% end %>
+
+
+<%= render 'form', meal: @meal %>

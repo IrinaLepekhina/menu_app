@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+
+  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  def index
+    @categories = Category.all
+  end
+
   def new
     @category = Category.new
     @category.meals.build #3.times { @category.meals.build }
@@ -9,10 +15,33 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     if @category.save
-      redirect_to root_url, notice: 'Category has been created'
+      redirect_to @category, notice: 'Category has been created'
     else
       render :new
     end
+  end
+
+  def edit
+    @category = Category.find(params[:id])
+  end
+  
+  def update
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
+      redirect_to category_path(@category), notice: 'Category has been updated'
+    else
+      render :edit
+    end
+  end
+
+  def show
+    @category = Category.find(params[:id])
+  end
+  
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+    redirect_to categories_path, notice: 'Category has been destroyed'
   end
 
   private
@@ -30,7 +59,5 @@ class CategoriesController < ApplicationController
       ])
   end
 
-  # def show
-  #   @category = Category.find(params[:id])
-  # end
+
 end

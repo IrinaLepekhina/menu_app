@@ -34,7 +34,7 @@ class MealsController < ApplicationController
     @meal = Meal.find(params[:id])
 
     if @meal.update(meal_params)
-      redirect_to meal_path(@meal)
+      redirect_to meal_path(@meal), notice: 'Meal has been updated'
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class MealsController < ApplicationController
 
   def destroy
     Meal.destroy(params[:id])
-    redirect_to meals_path
+    redirect_to meals_path, notice: 'Meal has been destroyed'
   end
 
   private
