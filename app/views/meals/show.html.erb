@@ -3,6 +3,8 @@
 
 <p>
   <%= link_to "Edit", edit_meal_path(@meal) %> |
-  <%= link_to "Destroy", @meal, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= button_to 'Delete', meal_path(@meal), 
+    method: :delete,
+    form: {data: {turbo_confirm: 'Are you sure?'}} %>
   <%= link_to "View All", meals_path %>
 </p>

@@ -11,6 +11,8 @@
 
 <p>
   <%= link_to "Edit", edit_category_path(@category) %> |
-  <%= link_to "Destroy", @category, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= button_to 'Delete', category_path(@category), 
+    method: :delete,
+    form: {data: {turbo_confirm: 'Are you sure?'}} %> |
   <%= link_to "View All", categories_path %>
 </p>

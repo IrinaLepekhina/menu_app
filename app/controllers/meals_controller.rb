@@ -36,6 +36,7 @@ class MealsController < ApplicationController
     if @meal.update(meal_params)
       redirect_to meal_path(@meal), notice: 'Meal has been updated'
     else
+      flash[:alert] = 'Something went wrong'
       render :edit
     end
   end

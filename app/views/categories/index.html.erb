@@ -7,7 +7,9 @@
       <td><%=h category.title %></td>
       <td><%= link_to "Show", category %></td>
       <td><%= link_to "Edit", edit_category_path(category) %></td>
-      <td><%= link_to "Destroy", category, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= button_to 'Delete', category_path(category), 
+        method: :delete,
+        form: {data: {turbo_confirm: 'Are you sure?'}} %></td>
     </tr>
   <% end %>
 </table>
