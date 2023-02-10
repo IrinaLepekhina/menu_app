@@ -8,12 +8,12 @@ class NewCategoryForm
   end
 
   def fill_in_with(_params = {})
-    fill_in('Title', with: 'Soup')
+    fill_in('Category title', with: 'Soup')
     self
   end
 
   def submit
-    click_on('Create Category')
+    click_on('submit')
     self
   end
 end

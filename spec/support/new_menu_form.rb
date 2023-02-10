@@ -14,7 +14,7 @@ class NewMenuForm
   end
 
   def submit
-    click_on('Create Menu')
+    click_on('submit')
     self
   end
 end

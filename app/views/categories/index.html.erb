@@ -1,17 +1,17 @@
 <table>
   <tr>
-    <th>Categories title</th>
+    <th>categories</th>
   </tr>
   <% for category in @categories %>
     <tr>
       <td><%=h category.title %></td>
-      <td><%= link_to "Show", category %></td>
-      <td><%= link_to "Edit", edit_category_path(category) %></td>
-      <td><%= button_to 'Delete', category_path(category), 
+      <td><%= link_to "show", category %></td>
+      <td><%= link_to "edit", edit_category_path(category) %></td>
+      <td><%= button_to 'delete', category_path(category), 
         method: :delete,
-        form: {data: {turbo_confirm: 'Are you sure?'}} %></td>
+        form: {data: {turbo_confirm: 'are you sure?'}} %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Category", new_category_path %></p>
+<p><%= link_to "create new", new_category_path %></p>

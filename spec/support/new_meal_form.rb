@@ -8,7 +8,7 @@ class NewMealForm
   end
 
   def fill_in_with(params = {})
-    fill_in('Title', with: 'Okroshka')
+    fill_in('Meal title', with: 'Okroshka')
     fill_in('Price', with: '134.5')
     fill_in('Description', with: 'Okroshka description')
     check('Promo meal')
@@ -20,7 +20,7 @@ class NewMealForm
   end
 
   def submit
-    click_on('Create Meal')
+    click_on('submit')
     self
   end
 end
