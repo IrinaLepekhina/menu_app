@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th>Meals title</th>
+  </tr>
+  <% for meal in @meals %>
+    <tr>
+      <td><%=h meal.title %></td>
+      <td><%= link_to "Show", meal %></td>
+      <td><%= link_to "Edit", edit_meal_path(meal) %></td>
+      <td><%= link_to "Destroy", meal, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Meal", new_meal_path %></p>

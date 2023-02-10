@@ -7,9 +7,16 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def show
+    @category = Category.find(params[:id])
+  end
+
   def new
     @category = Category.new
-    @category.meals.build #3.times { @category.meals.build }
+    # @category.meals.build 
+    3.times do
+      @category.meals.build
+    end
   end
 
   def create
@@ -32,10 +39,6 @@ class CategoriesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def show
-    @category = Category.find(params[:id])
   end
   
   def destroy
