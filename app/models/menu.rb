@@ -11,9 +11,13 @@ class Menu < ApplicationRecord
   # validates :dish_menus, :date, presence: true
   # validates_associated :dish_menus
 
-  # accepts_nested_attributes_for :dish_menus,
-  # allow_destroy: true,
-  # reject_if: proc { |attributes| attributes['included'] == '0' || blank? }
+  accepts_nested_attributes_for :menu_meals, reject_if: :reject_menu_meals
+
+  def reject_menu_meals(attributes)
+    attributes['price'].blank?
+  end
+
+
 
   def meals_attributes=(meal_attributes)
     meal_attributes.each_value do |meal_attribute|

@@ -4,6 +4,4 @@ class MenuMeal < ApplicationRecord
 
   validates :price, presence: true #, numericality: true
   # validates :meal_id, uniqueness: { scope: %i[menu_id] }
-
-  #  accepts_nested_attributes_for :meal
 end

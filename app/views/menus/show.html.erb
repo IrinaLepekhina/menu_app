@@ -1,0 +1,20 @@
+<% "Menu" %>
+<h1><%=@menu.title %> </h1>
+
+<ol>
+<% for menu_meal in @menu.menu_meals %>
+  <li>
+    <%=h menu_meal.meal.title %>
+  </li>
+<% end %>
+</ol>
+
+<p><%= link_to "add new meal", new_menu_meal_path %></p>
+
+<p>
+  <%= link_to "edit", edit_menu_path(@menu) %> |
+  <%= link_to "view all", menus_path %> |
+  <%= button_to 'delete', menu_path(@menu), 
+    method: :delete,
+    form: {data: {turbo_confirm: 'Are you sure?'}} %> 
+</p>

@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="#">Lets eat</a>
+          <a class="navbar-brand" href="/">Lets eat</a>
           <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,11 +23,9 @@
           <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
 
-              <li class="nav-item" ><%= link_to ' Lets eat ', root_url, class: "nav-link" %></li>
-              <li class="nav-item" ><%= link_to ' New Meal ', new_meal_path, class: "nav-link" %></li>
-              <li class="nav-item" ><%= link_to ' New Category ', new_category_path, class: "nav-link" %></li>
-              <li class="nav-item" ><%= link_to ' New Menu ', new_menu_path, class: "nav-link" %></li>
-              <li class="nav-item" ><%= link_to ' Fill Menu ', new_menu_meal_path, class: "nav-link" %></li>
+              <li class="nav-item" ><%= link_to ' Meals ', meals_path, class: "nav-link" %></li>
+              <li class="nav-item" ><%= link_to ' Categories ', categories_path, class: "nav-link" %></li>
+              <li class="nav-item" ><%= link_to ' Menus ', menus_path, class: "nav-link" %></li>
 
               <div>
                 <% if current_user.present? %>

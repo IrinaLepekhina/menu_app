@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
 class MenuMealsController < ApplicationController
-  # def show
-  #   @menu = Menu.find(params[:id])
-  # end
+
+  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+
+  def show
+    @menu_meal = MenuMeal.find(params[:id])
+  end
+
+  def index
+    @menu_meals = MenuMeal.all
+  end
 
   def new
     @menu_meal = MenuMeal.new
@@ -12,10 +19,29 @@ class MenuMealsController < ApplicationController
   def create
     @menu_meal = MenuMeal.new(menu_meal_params)
     if @menu_meal.save
-      redirect_to root_url, notice: 'Menu was filled'
+      redirect_to menu_meal_path(@menu_meal), notice: 'Menu was filled'
     else
       render :new
     end
+  end
+
+  def edit
+    @menu_meal = MenuMeal.find(params[:id])
+  end
+  
+  def update
+    @menu_meal = MenuMeal.find(params[:id])
+    if @menu_meal.update(menu_meal_params)
+      redirect_to menu_meal_path(@menu_meal), notice: 'Menu has been updated'
+    else
+      render :edit
+    end
+  end
+  
+  def destroy
+    @menu_meal = MenuMeal.find(params[:id])
+    @menu_meal.destroy
+    redirect_to menu_meals_path, notice: 'Menu has been destroyed'
   end
 
   private

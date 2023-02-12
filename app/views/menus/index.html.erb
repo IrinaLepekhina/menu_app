@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>menus</th>
+  </tr>
+  <% @menus.each do |menu| %>
+    <tr>
+      <td><%=h menu.title %></td>
+      <td><%= link_to "show", menu %></td>
+      <td><%= link_to "edit", edit_menu_path(menu) %></td>
+      <td><%= button_to 'delete', menu_path(menu), 
+        method: :delete,
+        form: {data: {turbo_confirm: 'are you sure?'}} %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "create new menu", new_menu_path %></p>

@@ -8,19 +8,6 @@ class Meal < ApplicationRecord
   validates :title, presence: true, uniqueness: true #uniqueness: { case_sensitive: true }
   validates :price_type, inclusion: { in: price_types.keys }
   
-  
-  
-  
-  # accepts_nested_attributes_for :menus
-  # accepts_nested_attributes_for :menu_meals
-  
-  
-  
-  
-  
-  
-  
-  
   mount_uploader :cover_image, CoverImageUploader
 
   def silly_title

@@ -2,8 +2,8 @@ class NewMenuForm
   include Capybara::DSL
 
   def visit_page
-    visit('/')
-    click_on('New Menu')
+    visit('/menus')
+    click_on('create new menu')
     self
   end
 

@@ -2,18 +2,20 @@ class NewCategoryForm
   include Capybara::DSL
 
   def visit_page
-    visit('/')
-    click_on('New Category')
+    visit('/categories')
+    click_on('create new category')
+    save_and_open_page
     self
   end
 
   def fill_in_with(_params = {})
-    fill_in('Category title', with: 'Soup')
+    fill_in 'Category title', with: 'Soup'
+
     self
   end
 
   def submit
-    click_on('submit')
+    click_button('submit')
     self
   end
 end

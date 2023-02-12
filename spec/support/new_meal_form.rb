@@ -3,7 +3,8 @@ class NewMealForm
 
   def visit_page
     visit('/')
-    click_on('New Meal')
+    click_on('Meals')
+    click_on('create new meal')
     self
   end
 

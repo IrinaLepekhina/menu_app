@@ -2,9 +2,9 @@
   <tr>
     <th>categories</th>
   </tr>
-  <% for category in @categories %>
+  <% @categories.each do |category| %>
     <tr>
-      <td><%=h category.title %></td>
+      <td><%= link_to category.title, category %></td>
       <td><%= link_to "show", category %></td>
       <td><%= link_to "edit", edit_category_path(category) %></td>
       <td><%= button_to 'delete', category_path(category), 
@@ -14,4 +14,4 @@
   <% end %>
 </table>
 
-<p><%= link_to "create new", new_category_path %></p>
+<p><%= link_to "create new category", new_category_path %></p>

@@ -2,16 +2,17 @@
   <tr>
     <th>meals</th>
   </tr>
-  <% for meal in @meals %>
+  <% @meals.each do |meal| %>
     <tr>
       <td><%=h meal.title %></td>
       <td><%= link_to "show", meal %></td>
       <td><%= link_to "edit", edit_meal_path(meal) %></td>
-      <td><%= button_to 'delete', meal_path(meal), 
-      method: :delete,
-      form: {data: {turbo_confirm: 'are you sure?'}} %></td>
+      <td><%= button_to 'delete', meal, 
+        method: :delete, 
+        form: { data: { turbo_confirm: 'Are you sure?' } } %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "create new", new_meal_path %></p>
+<p><%= link_to "create new meal", new_meal_path %></p>
+
