@@ -5,7 +5,7 @@ require_relative '../support/new_menu_form'
 require_relative '../support/login_form'
 
 describe 'create new menu NOT NESTED' do
-  let(:new_menu_form) { NewMenuForm.new }  
+  let(:new_menu_form) { NewMenuForm.new }
   let(:login_form) { LoginForm.new }
   let(:user) { create(:user) }
 

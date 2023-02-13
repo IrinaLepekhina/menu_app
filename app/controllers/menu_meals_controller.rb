@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
 class MenuMealsController < ApplicationController
-
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-
-  def show
-    @menu_meal = MenuMeal.find(params[:id])
-  end
 
   def index
     @menu_meals = MenuMeal.all
   end
 
+  def show
+    @menu_meal = MenuMeal.find(params[:id])
+  end
+
   def new
     @menu_meal = MenuMeal.new
+  end
+
+  def edit
+    @menu_meal = MenuMeal.find(params[:id])
   end
 
   def create
@@ -25,10 +28,6 @@ class MenuMealsController < ApplicationController
     end
   end
 
-  def edit
-    @menu_meal = MenuMeal.find(params[:id])
-  end
-  
   def update
     @menu_meal = MenuMeal.find(params[:id])
     if @menu_meal.update(menu_meal_params)
@@ -37,7 +36,7 @@ class MenuMealsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @menu_meal = MenuMeal.find(params[:id])
     @menu_meal.destroy

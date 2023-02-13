@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe CategoriesController do
-
   shared_examples "public access to categories" do
     describe "GET index" do
       it "renders :index template" do

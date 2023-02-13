@@ -6,7 +6,7 @@ RSpec.describe "Meals API" do
     by_weight_meal = create(:by_weight_meal, title: 'la ensalsda Mexicana')
     per_unit_meal = create(:per_unit_meal)
 
-    get '/api/meals' #, nil, { "Content-Type": "application/vnd.api+json" }
+    get '/api/meals' # , nil, { "Content-Type": "application/vnd.api+json" }
 
     expect(response).to have_http_status(:ok)
     json = JSON.parse(response.body)

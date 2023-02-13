@@ -1,13 +1,13 @@
 class Meal < ApplicationRecord
   belongs_to :category
-  has_many :menu_meals, dependent: :destroy #dependent: :restrict_with_error
+  has_many :menu_meals, dependent: :restrict_with_error
   has_many :menus, through: :menu_meals
 
   enum price_type: { per_unit: 0, by_weight: 1 }
-  
-  validates :title, presence: true, uniqueness: true #uniqueness: { case_sensitive: true }
+
+  validates :title, presence: true, uniqueness: true # uniqueness: { case_sensitive: true }
   validates :price_type, inclusion: { in: price_types.keys }
-  
+
   mount_uploader :cover_image, CoverImageUploader
 
   def silly_title

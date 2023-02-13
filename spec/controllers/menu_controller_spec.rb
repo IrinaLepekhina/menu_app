@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe MenusController do
-
   shared_examples "public access to menus" do
     describe "GET index" do
       it "renders :index template" do

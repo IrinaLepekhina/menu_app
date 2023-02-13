@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
+RSpec.describe Category do
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:category).with_message("must exist") }
-    it { is_expected.to belong_to(:category) }
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:category).with_message("must exist") }
+    it { should have_many(:meals) }
   end
 
   # describe 'uniqueness' do

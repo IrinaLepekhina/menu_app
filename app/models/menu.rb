@@ -7,7 +7,6 @@ class Menu < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :date, presence: true
 
-
   # validates :dish_menus, :date, presence: true
   # validates_associated :dish_menus
 
@@ -16,8 +15,6 @@ class Menu < ApplicationRecord
   def reject_menu_meals(attributes)
     attributes['price'].blank?
   end
-
-
 
   def meals_attributes=(meal_attributes)
     meal_attributes.each_value do |meal_attribute|
