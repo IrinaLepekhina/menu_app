@@ -4,7 +4,7 @@
   </tr>
   <% @meals.each do |meal| %>
     <tr>
-      <td><%=h meal.title %></td>
+      <td><%= link_to meal.title, meal %></td>
       <td><%= link_to "show", meal %></td>
       <td><%= link_to "edit", edit_meal_path(meal) %></td>
       <td><%= button_to 'delete', meal, 

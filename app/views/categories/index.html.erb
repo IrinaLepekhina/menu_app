@@ -5,7 +5,6 @@
   <% @categories.each do |category| %>
     <tr>
       <td><%= link_to category.title, category %></td>
-      <td><%= link_to "show", category %></td>
       <td><%= link_to "edit", edit_category_path(category) %></td>
       <td><%= button_to 'delete', category_path(category), 
         method: :delete,
