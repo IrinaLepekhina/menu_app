@@ -4,8 +4,8 @@ class Menu < ApplicationRecord
 
   accepts_nested_attributes_for :meals
 
-  validates :title, presence: true
-  validates :date, presence: true # , uniqueness: true
+  validates :title, presence: true, uniqueness: true
+  validates :date, presence: true
 
 
   # validates :dish_menus, :date, presence: true

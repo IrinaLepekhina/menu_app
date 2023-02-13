@@ -13,10 +13,7 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
-    # @category.meals.build 
-    3.times do
-      @category.meals.build
-    end
+    @category.meals.build
   end
 
   def create

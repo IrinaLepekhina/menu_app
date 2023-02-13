@@ -3,18 +3,17 @@
 class MenusController < ApplicationController
   
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  def index
+    @menus = Menu.all
+  end
   
   def show
     @menu = Menu.find(params[:id])
   end
 
-  def index
-    @menus = Menu.all
-  end
-
   def new
     @menu = Menu.new
-    3.times do
+    2.times do
       @menu.menu_meals.build
     end
   end

@@ -113,8 +113,7 @@ describe MenusController do
 
       it "assigns new menu to @menu/to template" do
         get :new
-        debugger
-        expect(assigns(:menu)).to be_a_new(menu)
+        expect(assigns(:menu)).to be_a_new(Menu)
       end
     end
 
@@ -130,7 +129,7 @@ describe MenusController do
         it "creates new menu in database" do
           expect do
             post :create, params: { menu: valid_data }
-          end.to change(menu, :count).by(1)
+          end.to change(Menu, :count).by(1)
         end
       end
 
@@ -145,7 +144,7 @@ describe MenusController do
         it "doesn't create new menu in database" do
           expect do
             post :create, params: { menu: invalid_data }
-          end.not_to change(menu, :count)
+          end.not_to change(Menu, :count)
         end
       end
     end
@@ -194,7 +193,7 @@ describe MenusController do
 
       it "deletes menu from database" do
         delete :destroy, params: { id: menu }
-        expect(menu).not_to exist(menu.id)
+        expect(Menu).not_to exist(menu.id)
       end
     end
   end
