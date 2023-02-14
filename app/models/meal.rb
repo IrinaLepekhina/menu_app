@@ -5,8 +5,10 @@ class Meal < ApplicationRecord
 
   enum price_type: { per_unit: 0, by_weight: 1 }
 
-  validates :title, presence: true, uniqueness: true # uniqueness: { case_sensitive: true }
   validates :price_type, inclusion: { in: price_types.keys }
+  validates_numericality_of(:price_init)
+  validates_presence_of :title, :price_type
+  validates_uniqueness_of :title
 
   mount_uploader :cover_image, CoverImageUploader
 
@@ -23,3 +25,12 @@ class Meal < ApplicationRecord
     Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(description)
   end
 end
+
+# category
+# category=
+# build_category
+# create_category
+# create_category!
+# reload_category
+# category_changed?
+# category_previously_changed?

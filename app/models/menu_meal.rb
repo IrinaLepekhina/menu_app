@@ -4,4 +4,9 @@ class MenuMeal < ApplicationRecord
 
   validates :price, presence: true # , numericality: true
   # validates :meal_id, uniqueness: { scope: %i[menu_id] }
+
+  def owner=(new_owner)
+    self.old_owner = self.owner
+    super
+  end
 end

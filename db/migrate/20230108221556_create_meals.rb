@@ -8,9 +8,11 @@ class CreateMeals < ActiveRecord::Migration[7.0]
       t.string :cover_image
       t.decimal :price_init, comment: 'initial price'
       t.references :category, null: false, foreign_key: true
+      # t.belongs_to :category, null: false, foreign_key: true, index: { unique: true }
 
       t.timestamps
     end
     add_index :meals, :title, unique: true
   end
 end
+  

@@ -1,14 +1,12 @@
 class Menu < ApplicationRecord
+
   has_many :menu_meals, dependent: :destroy
   has_many :meals, through: :menu_meals
 
-  accepts_nested_attributes_for :meals
+  validates_uniqueness_of :title
+  validates_presence_of :title, :date
 
-  validates :title, presence: true, uniqueness: true
-  validates :date, presence: true
-
-  # validates :dish_menus, :date, presence: true
-  # validates_associated :dish_menus
+  validates_associated :menu_meals
 
   accepts_nested_attributes_for :menu_meals, reject_if: :reject_menu_meals
 
@@ -16,11 +14,8 @@ class Menu < ApplicationRecord
     attributes['price'].blank?
   end
 
-  def meals_attributes=(meal_attributes)
-    meal_attributes.each_value do |meal_attribute|
-      meal1 = Meal.find_or_create_by(meal_attribute)
-
-      menu_meal = MenuMeal.find_or_create_by(menu: self, meal: meal1)
-    end
+  def self.next_week
+    where(date: Time.zone.now.at_beginning_of_week...Time.zone.now.at_end_of_week)
   end
+
 end
