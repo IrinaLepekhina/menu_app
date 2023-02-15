@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :meals
   resources :categories
   resources :menus
+  resources :menu_meals
 
-  resources :menu_meals, only: %i[new create show]
   resources :users, only: %i[new create show]
 
   resource :session, only: %i[new create destroy]

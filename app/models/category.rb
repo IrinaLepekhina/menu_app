@@ -13,12 +13,14 @@ class Category < ApplicationRecord
   end
 end
 
-# category = Category.first
-# params = { category: { meals_attributes: [{ id: '17', _destroy: '1' }]}}
-# category.attributes = params[:category]
-# category.meals.detect { |p| p.id == 17 }.marked_for_destruction?
-# category.meals.length
-# category.save
-# category.reload.meals.length
+# destroy through association
+  # category = Category.first
+  # params = { category: { meals_attributes: [{ id: '17', _destroy: '1' }]}}
+  # category.attributes = params[:category]
+  # category.meals.detect { |p| p.id == 17 }.marked_for_destruction?
+  # category.meals.length
+  # category.save
+  # category.reload.meals.length
 
-# category.meals_attributes = [ { :id => 1, :title => 'Lad' } ]
+# update through association
+  # category.meals_attributes = [ { :id => 1, :title => 'Lad' } ]

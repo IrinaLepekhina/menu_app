@@ -12,9 +12,7 @@ class MenusController < ApplicationController
 
   def new
     @menu = Menu.new
-    2.times do
-      @menu.menu_meals.build
-    end
+    @menu.menu_meals.build
   end
 
   def edit
@@ -52,6 +50,7 @@ class MenusController < ApplicationController
       :title,
       :date,
       menu_meals_attributes: [
+        :id,
         :menu_id,
         :meal_id,
         :price

@@ -1,13 +1,17 @@
-<% "Category" %>
-<h1><%=@category.title %> </h1>
-
-<ol>
-<% @category.meals.each do |meal| %>
-  <li>
-    <%=h meal.title %>
-  </li>
-<% end %>
-</ol>
+<table>
+  <tr>
+    <th><%=@category.title %></th>
+  </tr>
+  <% @category.meals.each do |meal| %>
+    <tr>
+      <td><%= link_to meal.title, meal %></td>
+      <td><%= link_to "edit", edit_meal_path(meal) %></td>
+      <td><%= button_to 'delete', meal_path(meal), 
+        method: :delete,
+        form: {data: {turbo_confirm: 'are you sure?'}} %></td>
+    </tr>
+  <% end %>
+</table>
 
 <p><%= link_to "add meal", new_meal_path %></p>
 
@@ -18,3 +22,6 @@
     method: :delete,
     form: {data: {turbo_confirm: 'Are you sure?'}} %> 
 </p>
+
+
+

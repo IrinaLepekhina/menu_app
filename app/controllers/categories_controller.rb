@@ -49,6 +49,8 @@ class CategoriesController < ApplicationController
     params.require(:category)
           .permit(:title,
                   meals_attributes: [
+                    :id,
+                    :category_id,
                     :title,
                     :price_type,
                     :price_init,

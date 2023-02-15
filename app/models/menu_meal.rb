@@ -1,12 +1,12 @@
 class MenuMeal < ApplicationRecord
   belongs_to :menu
   belongs_to :meal
+  
+  validates :price, presence: true, numericality: true
+  validates :meal_id, uniqueness: { scope: :menu_id, message: "this meal has been already added" }
 
-  validates :price, presence: true # , numericality: true
-  # validates :meal_id, uniqueness: { scope: %i[menu_id] }
-
-  def owner=(new_owner)
-    self.old_owner = self.owner
-    super
-  end
+  # def price=(new_price)
+  #   self.old_price = self.price
+  #   super
+  # end
 end
