@@ -1,0 +1,11 @@
+<h1><%=  @menu_meal.menu.date %> </h1>
+<h1><%=  @menu_meal.meal.title %> </h1>
+<h1><%=  @menu_meal.price %> </h1>
+
+<p>
+  <%= link_to "edit", edit_menu_meal_path(@menu_meal) %> |
+  <%= link_to "view All", menu_meals_path %> |
+  <%= button_to 'delete', menu_meal_path(@menu_meal), 
+    method: :delete,
+    form: {data: {turbo_confirm: 'Are you sure?'}} %>
+</p>

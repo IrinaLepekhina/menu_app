@@ -11,6 +11,7 @@ class Category < ApplicationRecord
   def reject_meals(attributes)
     attributes['title'].blank?
   end
+
 end
 
 # destroy through association
@@ -24,3 +25,10 @@ end
 
 # update through association
   # category.meals_attributes = [ { :id => 1, :title => 'Lad' } ]
+
+# custome nested
+  # def meals_attributes=(meals_attributes)
+  #   meals_attributes.values.each do |meal_attributes|
+  #     meal = Meal.find_or_create_by(meal_attributes)
+  #   end
+  # end

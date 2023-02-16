@@ -39,8 +39,12 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
-    redirect_to categories_path, notice: 'Category has been destroyed'
+    begin
+      @category.destroy
+      redirect_to categories_path, notice: 'Category has been destroyed'
+    rescue ActiveRecord::InvalidForeignKey => error
+      redirect_to category_path(@category), notice: "Cannot delete category while meals exist" #error.message
+    end
   end
 
   private
@@ -56,7 +60,8 @@ class CategoriesController < ApplicationController
                     :price_init,
                     :description,
                     :promo,
-                    :cover_image
+                    :cover_image,
+                    :_destroy
                   ])
   end
 end

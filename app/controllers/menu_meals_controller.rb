@@ -31,7 +31,7 @@ class MenuMealsController < ApplicationController
   def update
     @menu_meal = MenuMeal.find(params[:id])
     if @menu_meal.update(menu_meal_params)
-      redirect_to menu_meal_path(@menu_meal), notice: 'Menu has been updated'
+      redirect_to menu_meal_path(@menu_meal), notice: 'Menu item has been updated'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class MenuMealsController < ApplicationController
   def destroy
     @menu_meal = MenuMeal.find(params[:id])
     @menu_meal.destroy
-    redirect_to menu_meals_path, notice: 'Menu has been destroyed'
+    redirect_to menu_meals_path, notice: 'Menu item has been destroyed'
   end
 
   private
@@ -50,4 +50,5 @@ class MenuMealsController < ApplicationController
   end
 end
 
+# if add nested menu -> meal
 # menu.menu_meals.create(meal: meal)

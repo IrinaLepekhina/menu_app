@@ -5,7 +5,6 @@
   <% @menus.each do |menu| %>
     <tr>
       <td><%= link_to menu.title, menu %></td>
-      <td><%= link_to "show", menu %></td>
       <td><%= link_to "edit", edit_menu_path(menu) %></td>
       <td><%= button_to 'delete', menu_path(menu), 
         method: :delete,
@@ -15,3 +14,5 @@
 </table>
 
 <p><%= link_to "create new menu", new_menu_path %></p>
+
+<p><%= link_to "show all menu items", menu_meals_path %></p>

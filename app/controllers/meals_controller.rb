@@ -42,7 +42,8 @@ class MealsController < ApplicationController
   end
 
   def destroy
-    Meal.destroy(params[:id])
+    @meal = Meal.find(params[:id])
+    @meal.destroy
     redirect_to meals_path, notice: 'Meal has been destroyed'
   end
 
