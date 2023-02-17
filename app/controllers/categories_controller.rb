@@ -42,8 +42,8 @@ class CategoriesController < ApplicationController
     begin
       @category.destroy
       redirect_to categories_path, notice: 'Category has been destroyed'
-    rescue ActiveRecord::InvalidForeignKey => error
-      redirect_to category_path(@category), notice: "Cannot delete category while meals exist" #error.message
+    rescue ActiveRecord::InvalidForeignKey => e
+      redirect_to category_path(@category), notice: "Cannot delete category while meals exist" # error.message
     end
   end
 

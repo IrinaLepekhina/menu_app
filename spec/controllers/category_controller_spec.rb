@@ -17,19 +17,19 @@ describe CategoriesController do
   #     end
   #   end
 
-    # describe "GET show" do
-    #   let(:category) { create(:category) }
+  # describe "GET show" do
+  #   let(:category) { create(:category) }
 
-    #   it "renders :show template" do
-    #     get :show, params: { id: category } # { id: category.id }
-    #     expect(response).to render_template(:show)
-    #   end
+  #   it "renders :show template" do
+  #     get :show, params: { id: category } # { id: category.id }
+  #     expect(response).to render_template(:show)
+  #   end
 
-    #   it "assigns requested category to @category" do
-    #     get :show, params: { id: category }
-    #     expect(assigns(:category)).to eq(category)
-    #   end
-    # end
+  #   it "assigns requested category to @category" do
+  #     get :show, params: { id: category }
+  #     expect(assigns(:category)).to eq(category)
+  #   end
+  # end
   # end
 
   # describe "guest user" do
@@ -116,36 +116,61 @@ describe CategoriesController do
     #   end
     # end
 
-    # describe "POST create" do
-    #   let(:valid_data) { attributes_for(:category) }
+    describe "POST create" do
+      let(:valid_data) { attributes_for(:category) }
 
-    #   context "valid data" do
-    #     it "redirects to categories#show" do
-    #       post :create, params: { category: valid_data }
-    #       expect(response).to redirect_to(category_path(assigns[:category]))
-    #     end
+      context "valid data" do
+        context "without nested children" do
+          it "redirects to categories#show" do
+            post :create, params: { category: valid_data }
+            expect(response).to redirect_to(category_path(assigns[:category]))
+          end
 
-    #     it "creates new category in database" do
-    #       expect do
-    #         post :create, params: { category: valid_data }
-    #       end.to change(Category, :count).by(1)
-    #     end
+          it "creates new category in database" do
+            expect do
+              post :create, params: { category: valid_data }
+            end.to change(Category, :count).by(1)
+          end
+        end
+
+        context "with nested children" do
+          it "redirects to categories#show" do
+            post :create, params: { category: { title: "nested category", meals_attributes: { "0" => { title: "nested meal", price_type: "per_unit", description: "description", price_init: "4" } } } }
+
+            expect(response).to redirect_to(category_path(assigns[:category]))
+          end
+        end
+      end
+    end
+
+    # it "creates new category in database" do
+    #   expect do
+    #     post :create, params: { category: valid_data }
+    #   end.to change(Category, :count).by(1)
+    # end
+
+    # it "creates new meal in database" do
+    #   expect do
+    #     post :create, params: { category: valid_data }
+    #   end.to change(Meal, :count).by(1)
+    # end
+    #   end
+    # end
+
+    # context "invalid data" do
+    #   let(:invalid_data) { attributes_for(:category, title: '') }
+
+    #   it "renders :new template" do
+    #     post :create, params: { category: invalid_data }
+    #     expect(response).to render_template(:new)
     #   end
 
-    #   context "invalid data" do
-    #     let(:invalid_data) { attributes_for(:category, title: '') }
-
-    #     it "renders :new template" do
+    #   it "doesn't create new category in database" do
+    #     expect do
     #       post :create, params: { category: invalid_data }
-    #       expect(response).to render_template(:new)
-    #     end
-
-    #     it "doesn't create new category in database" do
-    #       expect do
-    #         post :create, params: { category: invalid_data }
-    #       end.not_to change(Category, :count)
-    #     end
+    #     end.not_to change(Category, :count)
     #   end
+    # end
     # end
 
     describe "PUT update" do
@@ -171,20 +196,19 @@ describe CategoriesController do
           let!(:meal) { create(:by_weight_meal, category_id: category.id) }
 
           it "redirects to categories#show" do
-          put :update, params: { id: category, category: {title: "New category Title", meals_attributes: {title: "New meal Title", id: meal.id }}}
+            put :update, params: { id: category, category: { title: "New category Title", meals_attributes: { title: "New meal Title", id: meal.id } } }
             expect(response).to redirect_to(category)
           end
 
           it "updates category and meal in database" do
-            put :update, params: { id: category, category: {title: "New category Title", meals_attributes: {title: "New meal Title", id: meal.id }}}
+            put :update, params: { id: category, category: { title: "New category Title", meals_attributes: { title: "New meal Title", id: meal.id } } }
             category.reload
             meal.reload
             expect(category.title).to eq("New category Title")
             expect(meal.title).to eq("New meal Title")
           end
-        end 
-      end      
-
+        end
+      end
 
       context "invalid data" do
         context "without nested children" do
@@ -207,7 +231,7 @@ describe CategoriesController do
 
           describe "invalid parent, valid children" do
             before do
-              put :update, params: { id: category, category: {title: '', meals_attributes: {title: "New meal Title", id: meal.id }}}
+              put :update, params: { id: category, category: { title: '', meals_attributes: { title: "New meal Title", id: meal.id } } }
               category.reload
               meal.reload
             end
@@ -215,11 +239,11 @@ describe CategoriesController do
             it "renders :edit template" do
               expect(response).to render_template(:edit)
             end
-  
+
             it "doesn't update category in database" do
               expect(category.title).not_to eq('')
             end
-  
+
             it "doesn't update meal in database" do
               expect(meal.title).not_to eq('New meal Title')
             end
@@ -227,7 +251,7 @@ describe CategoriesController do
 
           describe "valid parent, invalid children" do
             before do
-              put :update, params: { id: category, category: {title: 'New category Title', meals_attributes: {title: "", id: meal.id }}}
+              put :update, params: { id: category, category: { title: 'New category Title', meals_attributes: { title: "", id: meal.id } } }
               category.reload
               meal.reload
             end
@@ -239,16 +263,14 @@ describe CategoriesController do
             it "do update category in database" do
               expect(category.title).to eq('New category Title')
             end
-  
+
             it "doesn't update meal in database" do
               expect(meal.title).not_to eq("")
             end
           end
         end
-
       end
     end
-
 
     describe "DELETE destroy" do
       let!(:category) { create(:category) }
@@ -266,27 +288,22 @@ describe CategoriesController do
       end
 
       context "nested children are not empty" do
-
         describe "delete category" do
           let!(:meal) { create(:by_weight_meal, category_id: category.id) }
-    
+
           it "redirects to categories#index" do
             delete :destroy, params: { id: category }
             expect(response).to redirect_to(category_path(category))
           end
-    
+
           it "not delete category from database" do
             delete :destroy, params: { id: category }
             expect(Category).to exist(category.id)
           end
         end
 
-        describe "delete meal" do
-        end
-
+        describe "delete meal"
       end
     end
-
-
   end
 end

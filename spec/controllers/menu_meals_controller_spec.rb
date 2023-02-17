@@ -183,7 +183,7 @@ describe MenuMealsController do
         it "doesn't updates meal in database" do
           put :update, params: { id: menu_meal, menu_meal: invalid_data }
           menu_meal.reload
-          expect(menu_meal.price).not_to eq(nil)
+          expect(menu_meal.price).not_to be_nil
         end
       end
     end

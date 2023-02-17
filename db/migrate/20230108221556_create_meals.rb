@@ -15,4 +15,3 @@ class CreateMeals < ActiveRecord::Migration[7.0]
     add_index :meals, :title, unique: true
   end
 end
-  

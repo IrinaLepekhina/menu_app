@@ -4,9 +4,9 @@ RSpec.describe Meal do
   let!(:category) { create(:category) }
 
   describe 'validations' do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:category).with_message("must exist") }
-    it { should belong_to(:category) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:category).with_message("must exist") }
+    it { is_expected.to belong_to(:category) }
   end
 
   describe 'uniqueness' do
