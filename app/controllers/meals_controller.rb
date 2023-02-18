@@ -22,7 +22,6 @@ class MealsController < ApplicationController
   end
 
   def create
-    debugger
     @meal = Meal.new(meal_params)
     if @meal.save
       redirect_to meal_url(@meal), notice: 'Meal has been created'

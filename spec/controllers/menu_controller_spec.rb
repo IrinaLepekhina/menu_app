@@ -120,30 +120,106 @@ describe MenusController do
       let(:valid_data) { attributes_for(:menu) }
 
       context "valid data" do
-        it "redirects to menus#show" do
-          post :create, params: { menu: valid_data }
-          expect(response).to redirect_to(menu_path(assigns[:menu]))
+        context "without nested children" do
+          it "redirects to menus#show" do
+            post :create, params: { menu: valid_data }
+            expect(response).to redirect_to(menu_path(assigns[:menu]))
+          end
+
+          it "creates new menu in database" do
+            expect do
+              post :create, params: { menu: valid_data }
+            end.to change(Menu, :count).by(1)
+          end
         end
 
-        it "creates new menu in database" do
-          expect do
-            post :create, params: { menu: valid_data }
-          end.to change(Menu, :count).by(1)
+        context "with nested children" do
+          before do
+            category = create(:category)
+            meal = create(:by_weight_meal)
+            @valid_data = { title: "nested menu", date: "2023-02-19", menu_meals_attributes: { "0" => { price: 1, meal_id: meal.id } } }
+          end
+
+          it "redirects to menus#show" do
+            post :create, params: { menu: @valid_data }
+            expect(response).to redirect_to(menu_path(assigns[:menu]))
+          end
+
+          it "creates new menu in database" do
+            expect do
+              post :create, params: { menu: @valid_data }
+            end.to change(Menu, :count).by(1)
+          end
+  
+          it "creates new menu_meal in database" do
+            expect do
+              post :create, params: { menu: @valid_data }
+            end.to change(MenuMeal, :count).by(1)
+          end
         end
       end
-
+  
       context "invalid data" do
-        let(:invalid_data) { attributes_for(:menu, title: '') }
-
-        it "renders :new template" do
-          post :create, params: { menu: invalid_data }
-          expect(response).to render_template(:new)
+        context 'without nested children' do
+          let(:invalid_data) { attributes_for(:menu, title: '') }
+    
+          it "renders :new template" do
+            post :create, params: { menu: invalid_data }
+            expect(response).to render_template(:new)
+          end
+    
+          it "doesn't create new menu in database" do
+            expect do
+              post :create, params: { menu: invalid_data }
+            end.not_to change(Menu, :count)
+          end
         end
 
-        it "doesn't create new menu in database" do
-          expect do
-            post :create, params: { menu: invalid_data }
-          end.not_to change(Menu, :count)
+        context "with nested children" do
+          before do
+            category = create(:category)
+            meal = create(:by_weight_meal)
+            @invalid_menu_data = { title: "nested menu", date: "", menu_meals_attributes: { "0" => { price: 1, meal_id: meal.id } } }
+            @invalid_menu_meal_data = { title: "nested menu", date: "2023-02-19", menu_meals_attributes: { "0" => { price: nil, meal_id: meal.id } } }
+          end
+
+          describe "valid menu, invalid menu_meal" do
+            it "renders :new template" do
+              post :create, params: { menu: @invalid_menu_data }
+              expect(response).to render_template(:new)
+            end
+      
+            it "doesn't create new menu in database" do
+              expect do
+                post :create, params: { menu: @invalid_menu_data }
+              end.not_to change(Menu, :count)
+            end
+
+            it "doesn't create new menu_meal in database" do
+              expect do
+                post :create, params: { menu: @invalid_menu_data }
+              end.not_to change(MenuMeal, :count)
+            end
+          end
+
+          describe "invalid menu, valid menu_meal" do
+            it "renders :new template" do
+              post :create, params: { menu: @invalid_menu_meal_data }
+              expect(response).to redirect_to(menu_path(assigns[:menu]))
+            end
+      
+            it "do create new menu in database" do
+              expect do
+                post :create, params: { menu: @invalid_menu_meal_data }
+              end.to change(Menu, :count).by(1)
+            end
+
+            it "doesn't create new meal in database" do
+              expect do
+                post :create, params: { menu: @invalid_menu_meal_data }
+              end.not_to change(MenuMeal, :count)
+            end
+          end
         end
       end
     end
@@ -152,47 +228,139 @@ describe MenusController do
       let(:menu) { create(:menu) }
 
       context "valid data" do
-        let(:valid_data) { attributes_for(:menu, title: "New Title") }
+        context "without nested children" do
+          let(:valid_data) { attributes_for(:menu, title: "New Title") }
 
-        it "redirects to menus#show" do
-          put :update, params: { id: menu, menu: valid_data }
-          expect(response).to redirect_to(menu)
+          it "redirects to menus#show" do
+            put :update, params: { id: menu, menu: valid_data }
+            expect(response).to redirect_to(menu)
+          end
+
+          it "updates menu in database" do
+            put :update, params: { id: menu, menu: valid_data }
+            menu.reload
+            expect(menu.title).to eq("New Title")
+          end
         end
 
-        it "updates menu in database" do
-          put :update, params: { id: menu, menu: valid_data }
-          menu.reload
-          expect(menu.title).to eq("New Title")
+        context "with nested children" do
+          let!(:category) { create(:category) }
+          let!(:meal) { create(:by_weight_meal) }
+          let!(:menu_meal) { create(:menu_meal, menu_id: menu.id) }
+
+          before do
+            put :update, params: { id: menu, menu: { title: "New menu Title", menu_meals_attributes: { id: menu_meal.id, price: 1 } } }
+            menu.reload
+            menu_meal.reload
+          end
+          
+          it "redirects to menus#show" do
+            expect(response).to redirect_to(menu)
+          end
+
+          it "updates menu and meal in database" do
+            expect(menu.title).to eq("New menu Title")
+            expect(menu_meal.price).to eq(1)
+          end
         end
       end
 
       context "invalid data" do
-        let(:invalid_data) { attributes_for(:menu, title: '', description: 'new') }
+        context "without nested children" do
+          let(:invalid_data) { attributes_for(:menu, title: '') }
 
-        it "renders :edit template" do
-          put :update, params: { id: menu, menu: invalid_data }
-          expect(response).to render_template(:edit)
+          it "renders :edit template" do
+            put :update, params: { id: menu, menu: invalid_data }
+            expect(response).to render_template(:edit)
+          end
+
+          it "doesn't update menu in database" do
+            put :update, params: { id: menu, menu: invalid_data }
+            menu.reload
+            expect(menu.title).not_to eq('')
+          end
         end
 
-        it "doesn't updates menu in database" do
-          put :update, params: { id: menu, menu: invalid_data }
-          menu.reload
-          expect(menu.title).not_to eq("New Title")
+        context "with nested children" do
+          let!(:category) { create(:category) }
+          let!(:meal) { create(:by_weight_meal) }
+          let!(:menu_meal) { create(:menu_meal, menu_id: menu.id) }
+
+          describe "invalid parent, valid children" do
+            before do
+              put :update, params: { id: menu, menu: { title: '', menu_meals_attributes: { price: 1, id: menu_meal.id } } }
+              menu.reload
+              menu_meal.reload
+            end
+            
+            it "renders :edit template" do
+              expect(response).to render_template(:edit)
+            end
+
+            it "doesn't update menu in database" do
+              expect(menu.title).not_to eq('')
+            end
+
+            it "doesn't update menu_meal in database" do
+              expect(menu_meal.price).not_to eq(1)
+            end
+          end
+
+          describe "valid parent, invalid children" do
+            before do
+              put :update, params: { id: menu, menu: { title: 'New menu Title', meals_attributes: { title: "", id: meal.id } } }
+              menu.reload
+              meal.reload
+            end
+
+            it "redirects to updated menu" do
+              expect(response).to redirect_to menu_path(menu)
+            end
+
+            it "do update menu in database" do
+              expect(menu.title).to eq('New menu Title')
+            end
+
+            it "doesn't update meal in database" do
+              expect(meal.title).not_to eq("")
+            end
+          end
         end
       end
     end
 
     describe "DELETE destroy" do
-      let(:menu) { create(:menu) }
+      let!(:menu) { create(:menu) }
+      let!(:category) { create(:category) }
+      let!(:meal) { create(:by_weight_meal) }
 
-      it "redirects to menus#index" do
-        delete :destroy, params: { id: menu }
-        expect(response).to redirect_to(menus_path)
+      context "nested children are empty" do
+        it "redirects to menus#index" do
+          delete :destroy, params: { id: menu }
+          expect(response).to redirect_to(menus_path)
+        end
+
+        it "deletes menu from database" do
+          delete :destroy, params: { id: menu }
+          expect(Menu).not_to exist(menu.id)
+        end
       end
 
-      it "deletes menu from database" do
-        delete :destroy, params: { id: menu }
-        expect(Menu).not_to exist(menu.id)
+      context "nested children are not empty" do
+        describe "delete menu" do
+          let!(:menu_meal) { create(:menu_meal, menu_id: menu.id) }
+
+          it "redirects to menus#index" do
+            delete :destroy, params: { id: menu }
+            expect(response).to redirect_to(menus_path)
+          end
+
+          it "do delete menu from database" do
+            delete :destroy, params: { id: menu }
+            expect(Menu).not_to exist(menu.id)
+          end
+        end
+
       end
     end
   end

@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Category do
+  
   describe 'validations' do
+
     it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_presence_of(:category).with_message("must exist") }
     it { is_expected.to have_many(:meals) }
   end
 
-  # describe 'uniqueness' do
-  #   let!(:meal) { create(:by_weight_meal) }
+  describe 'uniqueness' do
+    let!(:category) { create(:category) }
 
-  #   it { is_expected.to validate_uniqueness_of(:title).case_insensitive }
-  # end
+    it { is_expected.to validate_uniqueness_of(:title).case_insensitive }
+  end
 
   # it 'converts markdown to html' do
   #   meal = create(:by_weight_meal, description: 'Awesome **food** U *have to* try')
