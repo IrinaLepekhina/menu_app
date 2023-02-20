@@ -3,7 +3,7 @@
 class MenusController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
   def index
-    @menus = Menu.all
+    @menus = Menu.includes(:menu_meals).references(:menu_meals) #.to_a
   end
 
   def show

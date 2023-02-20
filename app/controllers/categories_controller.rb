@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
   def index
-    @categories = Category.includes(:meals).references(:meals).to_a
+    @categories = Category.includes(:meals).references(:meals) #.to_a
   end
 
   def show
