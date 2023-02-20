@@ -20,6 +20,8 @@ class Meal < ApplicationRecord
   def self.by_letter(letter)
     includes(:category).where("meals.title LIKE ?", "#{letter}%").order("categories.title")
   end
+  # scope :by_letter, ->(letter) { includes(:category).where("meals.title LIKE ?", "#{letter}%").order("categories.title")}
+  scope :promo_and_expensive, -> { promo.where('price_init > 500') }
 
   def description_html
     ### add check - if exists/not nul

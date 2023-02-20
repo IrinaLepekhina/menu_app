@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  has_many :meals # , dependent: :restrict_with_error
+  has_many :meals, -> { order(title: :asc) }, dependent: :restrict_with_error
 
   validates :title, presence: { allow_blank: false }
   validates :title, uniqueness: { case_sensitive: false }

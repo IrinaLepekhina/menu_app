@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
   def index
-    @categories = Category.all
+    @categories = Category.includes(:meals).references(:meals).to_a
   end
 
   def show
@@ -39,12 +39,19 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    begin
-      @category.destroy
+
+    if @category.destroy
       redirect_to categories_path, notice: 'Category has been destroyed'
-    rescue ActiveRecord::InvalidForeignKey => e
-      redirect_to category_path(@category), notice: "Cannot delete category while meals exist" # error.message
+    else
+      redirect_to category_path(@category), notice: "Cannot delete category while meals exist"
     end
+
+    # begin
+    #   @category.destroy
+    #   redirect_to categories_path, notice: 'Category has been destroyed'
+    # rescue ActiveRecord::InvalidForeignKey => e
+    #   redirect_to category_path(@category), notice: "Cannot delete category while meals exist" # error.message
+    # end
   end
 
   private

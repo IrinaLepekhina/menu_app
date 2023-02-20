@@ -1,16 +1,25 @@
 # frozen_string_literal: true
 
 class MealsController < ApplicationController
-  # before_action :prepare_category
-  # before_action :prepare_menu
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  # skip_before_action 
 
   def index
     @meals = Meal.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @meals }
+    end
   end
 
   def show
     @meal = Meal.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @meal }
+    end
   end
 
   def new
@@ -24,7 +33,10 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new(meal_params)
     if @meal.save
-      redirect_to meal_url(@meal), notice: 'Meal has been created'
+      respond_to do |format|
+        format.html { redirect_to meal_url(@meal), notice: 'Meal has been created' }
+        format.json { render json: @meal }
+      end
     else
       render :new
     end
@@ -34,7 +46,10 @@ class MealsController < ApplicationController
     @meal = Meal.find(params[:id])
 
     if @meal.update(meal_params)
-      redirect_to meal_path(@meal), notice: 'Meal has been updated'
+      respond_to do |format|
+        format.html { redirect_to meal_path(@meal), notice: 'Meal has been updated' }
+        format.json { render json: @meal }
+      end      
     else
       flash[:alert] = 'not updated'
       render :edit
@@ -43,8 +58,14 @@ class MealsController < ApplicationController
 
   def destroy
     @meal = Meal.find(params[:id])
-    @meal.destroy
-    redirect_to meals_path, notice: 'Meal has been destroyed'
+    if @meal.destroy
+      respond_to do |format|
+        format.html { redirect_to meals_path, notice: 'Meal has been destroyed' }
+        # format.json { render json: }
+      end
+    else
+      redirect_to meal_path(@meal), notice: "Cannot delete meal while included in menu"
+    end
   end
 
   private
@@ -62,10 +83,3 @@ class MealsController < ApplicationController
     )
   end
 end
-
-# def prepare_category
-#   @category = Category.find(params[:category_id])
-# end
-# def prepare_menu
-#   @menu = Menu.find(params[:menu_id])
-# end
