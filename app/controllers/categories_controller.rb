@@ -2,37 +2,68 @@
 
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  # skip_before_action 
+
   def index
     @categories = Category.includes(:meals).references(:meals) #.to_a
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories }
+    end
   end
 
-  def show
-    @category = Category.find(params[:id])
+  def create
+    @category = Category.new(category_params)
+
+    if @category.save
+      respond_to do |format|
+        format.html { redirect_to @category, notice: 'Category was added' }
+        format.json { render json: @menu_meal }
+      end
+    else
+      # flash[:alert] = 'not created'
+      render :new
+    end
   end
 
   def new
     @category = Category.new
     @category.meals.build
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
   end
 
   def edit
     @category = Category.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
   end
 
-  def create
-    @category = Category.new(category_params)
-    if @category.save
-      redirect_to @category, notice: 'Category has been created'
-    else
-      render :new
+  def show
+    @category = Category.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
     end
   end
 
   def update
     @category = Category.find(params[:id])
+
     if @category.update(category_params)
-      redirect_to category_path(@category), notice: 'Category has been updated'
+      respond_to do |format|
+        format.html { redirect_to category_url(@category), notice: 'Category has been updated' }
+        format.json { render json: @category }
+      end      
     else
+      flash[:alert] = 'not updated'
       render :edit
     end
   end
@@ -41,9 +72,12 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     if @category.destroy
-      redirect_to categories_path, notice: 'Category has been destroyed'
+      respond_to do |format|
+        format.html { redirect_to categories_url, notice: 'Category has been destroyed' }
+        # format.json { render json: }
+      end
     else
-      redirect_to category_path(@category), notice: "Cannot delete category while meals exist"
+      redirect_to category_url(@category), notice: "Cannot delete category while meals exist"
     end
 
     # begin

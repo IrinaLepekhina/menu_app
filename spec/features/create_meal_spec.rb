@@ -21,7 +21,7 @@ describe 'create new meal NOT NESTED' do
     ).submit
 
     expect(Meal.last.cover_image_identifier).to eq('cover_image.png')
-    expect(page).to have_content('Meal has been created')
+    expect(page).to have_content('Meal was added')
     expect(Meal.last.title).to eq('Okroshka')
   end
 

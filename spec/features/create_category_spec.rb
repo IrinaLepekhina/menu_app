@@ -19,7 +19,7 @@ describe 'create new category NOT NESTED' do
       title: 'Soup'
     ).submit
 
-    expect(page).to have_content('Category has been created')
+    expect(page).to have_content('Category was added')
     expect(Category.last.title).to eq('Soup')
   end
 

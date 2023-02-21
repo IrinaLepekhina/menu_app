@@ -19,7 +19,7 @@ describe 'create new menu NOT NESTED' do
       title: 'X day'
     ).submit
 
-    expect(page).to have_content('Menu has been created')
+    expect(page).to have_content('Menu was added')
     expect(Menu.last.title).to eq('X day')
   end
 

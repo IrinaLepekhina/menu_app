@@ -13,6 +13,38 @@ class MealsController < ApplicationController
     end
   end
 
+  def create
+    @meal = Meal.new(meal_params)
+
+    if @meal.save
+      respond_to do |format|
+        format.html { redirect_to meal_url(@meal), notice: 'Meal was added' }
+        format.json { render json: @meal }
+      end
+    else
+      # flash[:alert] = 'not created'
+      render :new
+    end
+  end
+
+  def new
+    @meal = Meal.new
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @meal }
+    end
+  end
+
+  def edit
+    @meal = Meal.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @meal }
+    end
+  end
+  
   def show
     @meal = Meal.find(params[:id])
 
@@ -22,32 +54,12 @@ class MealsController < ApplicationController
     end
   end
 
-  def new
-    @meal = Meal.new
-  end
-
-  def edit
-    @meal = Meal.find(params[:id])
-  end
-
-  def create
-    @meal = Meal.new(meal_params)
-    if @meal.save
-      respond_to do |format|
-        format.html { redirect_to meal_url(@meal), notice: 'Meal has been created' }
-        format.json { render json: @meal }
-      end
-    else
-      render :new
-    end
-  end
-
   def update
     @meal = Meal.find(params[:id])
 
     if @meal.update(meal_params)
       respond_to do |format|
-        format.html { redirect_to meal_path(@meal), notice: 'Meal has been updated' }
+        format.html { redirect_to meal_url(@meal), notice: 'Meal has been updated' }
         format.json { render json: @meal }
       end      
     else
@@ -58,9 +70,10 @@ class MealsController < ApplicationController
 
   def destroy
     @meal = Meal.find(params[:id])
+
     if @meal.destroy
       respond_to do |format|
-        format.html { redirect_to meals_path, notice: 'Meal has been destroyed' }
+        format.html { redirect_to meals_path, notice: 'Meal was deleted' }
         # format.json { render json: }
       end
     else
