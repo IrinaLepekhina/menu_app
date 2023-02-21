@@ -1,6 +1,6 @@
 class Menu < ApplicationRecord
   has_many :menu_meals, -> { order(created_at: :desc) }, dependent: :destroy
-  has_many :meals, through: :menu_meal
+  has_many :meals, through: :menu_meals
 
   validates :title, uniqueness: true
   validates :title, :date, presence: true
