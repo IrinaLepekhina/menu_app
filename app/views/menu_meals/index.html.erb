@@ -1,15 +1,17 @@
+<%= paginate @menu_meals, remote: true %>
+
 <table>
   <tr>
     <th>menu items</th>
   </tr>
   <% @menu_meals.each do |menu_meal| %>
     <tr>
-      <td><%= link_to menu_meal.menu.title, menu_meal %></td>
-      <td><%= link_to menu_meal.menu.date, menu_meal %></td>
-      <td><%= link_to menu_meal.meal.title, menu_meal %></td>
-      <td><%= link_to menu_meal.price, menu_meal %></td>
-      <td><%= link_to "show", menu_meal %></td>
-      <td><%= link_to "edit", edit_menu_meal_path(menu_meal) %></td>
+      <td><%= link_to menu_meal.menu.title, menu_meal %> </td>
+      <td><%= link_to menu_meal.menu.date, menu_meal %> | </td>
+      <td><%= link_to menu_meal.meal.title, menu_meal %> | </td>
+      <td><%= link_to menu_meal.price, menu_meal %> | </td>
+      <td><%= link_to "show", menu_meal %> | </td>
+      <td><%= link_to "edit", edit_menu_meal_path(menu_meal) %> | </td>
       <td><%= button_to 'delete', menu_meal, 
         method: :delete, 
         form: { data: { turbo_confirm: 'Are you sure?' } } %></td>

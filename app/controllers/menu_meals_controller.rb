@@ -5,7 +5,7 @@ class MenuMealsController < ApplicationController
   # skip_before_action 
 
   def index
-    @menu_meals = MenuMeal.all
+    @menu_meals = MenuMeal.order(:id).page(params[:page]).per(1)
     
     respond_to do |format|
       format.html

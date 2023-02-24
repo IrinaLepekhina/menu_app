@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       render json: { msg: "Вы не авторизованы" }, status: :forbidden
     else
-      redirect_to new_session_path
+      redirect_to new_session_url, notice: "Вы не авторизованы"
     end
   end
 

@@ -5,6 +5,7 @@
 <p>
   <%= link_to "edit", edit_meal_path(@meal) %> |
   <%= link_to "view All", meals_path %> |
+  
   <%= button_to 'delete', meal_path(@meal), 
     method: :delete,
     form: {data: {turbo_confirm: 'Are you sure?'}} %>

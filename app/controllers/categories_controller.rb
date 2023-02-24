@@ -5,7 +5,8 @@ class CategoriesController < ApplicationController
   # skip_before_action 
 
   def index
-    @categories = Category.includes(:meals).references(:meals) #.to_a
+    @categories = Category.order(:title).page(params[:page]).per(10)
+    #includes(:meals).references(:meals) #.to_a
 
     respond_to do |format|
       format.html

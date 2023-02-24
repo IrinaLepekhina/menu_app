@@ -21,6 +21,7 @@ gem 'simple_form'
 
 gem 'haml-rails'
 gem 'active_model_serializers'
+gem 'kaminari'
 
 # good gems:
 # gem letter_opener

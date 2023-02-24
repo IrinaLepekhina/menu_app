@@ -1,3 +1,5 @@
+<%= paginate @menus, remote: true %>
+
 <table>
   <tr>
     <th>menus</th>
@@ -16,6 +18,7 @@
   <% end %>
   </div>
 </table>
+
 
 <p><%= link_to "create new menu", new_menu_path %></p>
 
