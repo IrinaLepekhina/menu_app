@@ -122,7 +122,7 @@ describe MealsController do
     end
 
     describe "POST create" do
-      let(:valid_data) { attributes_for(:by_weight_meal) }
+      let(:valid_data) { attributes_for(:by_weight_meal, price_init: 1.7) }
 
       context "valid data" do
         it "redirects to meals#show" do
@@ -134,6 +134,12 @@ describe MealsController do
           expect do
             post :create, params: { meal: valid_data }
           end.to change(Meal, :count).by(1)
+        end
+
+        it "creates pozitive floats price" do
+          post :create, params: { meal: valid_data }
+          expect(Meal.last.price_init).to be_a(BigDecimal)
+          expect(Meal.last.price_init).to be >= 0
         end
       end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_184550) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_24_042601) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", comment: "category title"
     t.datetime "created_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_184550) do
     t.text "description"
     t.boolean "promo"
     t.string "cover_image"
-    t.decimal "price_init", precision: 10, comment: "initial price"
+    t.decimal "price_init", precision: 10, scale: 3, comment: "initial price"
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_184550) do
   create_table "menu_meals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "menu_id", null: false
     t.bigint "meal_id", null: false
-    t.decimal "price", precision: 10
+    t.decimal "price", precision: 10, scale: 3
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_menu_meals_on_meal_id"

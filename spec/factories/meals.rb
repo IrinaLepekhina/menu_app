@@ -4,7 +4,7 @@ FactoryBot.define do
     description { "description" }
     promo { false }
     cover_image { "some_file.png" }
-    price_init { "200.5" }
+    price_init { "200.6" }
     category_id { Category.all.sample.id }
 
     # subfactory

@@ -136,6 +136,12 @@ describe MenuMealsController do
             post :create, params: { menu_meal: valid_data }
           end.to change(MenuMeal, :count).by(1)
         end
+
+        it "creates pozitive floats price" do
+          post :create, params: { menu_meal: valid_data }
+          expect(MenuMeal.last.price).to be_a(BigDecimal)
+          expect(MenuMeal.last.price).to be >= 0
+        end
       end
 
       context "invalid data" do
