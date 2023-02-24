@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
+  serialization_scope :view_context
+
   helper_method :current_user
 
   private
 
   def current_user
+    # OpenStruct.new(admin?: true)
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
@@ -16,4 +19,8 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_path
     end
   end
+
+  # def default_serializer_options
+  #   {root: false}
+  # end
 end

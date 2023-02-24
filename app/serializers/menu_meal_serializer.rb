@@ -1,6 +1,11 @@
-class MenuMealSerializer < ActiveModel::Serializer
-  attributes :id, :price
+class MenuMealSerializer < ApplicationSerializer
+  attributes :id, :price, :menu_date, :meal_title
 
-  belongs_to :menu
-  belongs_to :meal
+  def menu_date
+    object.menu.date
+  end
+
+  def meal_title
+    object.meal.title
+  end
 end

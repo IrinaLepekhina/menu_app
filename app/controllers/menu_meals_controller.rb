@@ -50,7 +50,7 @@ class MenuMealsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render json: @menu_meals }
+      format.json { render json: @menu_meal }
     end
   end
 

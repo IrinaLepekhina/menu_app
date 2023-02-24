@@ -9,10 +9,14 @@ RSpec.describe "Meals API" do
     get '/api/meals' # , nil, { "Content-Type": "application/vnd.api+json" }
 
     expect(response).to have_http_status(:ok)
+
     json = JSON.parse(response.body)
 
-    expect(json['data'].count).to eq(2)
-    expect(json['data'][0]["type"]).to eq('meals')
-    expect(json['data'][0]["attributes"]["title"]).to eq('la ensalsda Mexicana')
+    expect(json.count).to eq(2)
+    expect(json[0]["meal_title"]).to eq('la ensalsda Mexicana')
+
+    # expect(json['data'].count).to eq(2)
+    # expect(json['data'][0]["type"]).to eq('meals')
+    # expect(json['data'][0]["attributes"]["title"]).to eq('la ensalsda Mexicana')
   end
 end

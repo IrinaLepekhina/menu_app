@@ -5,13 +5,16 @@ class MenusController < ApplicationController
   # skip_before_action 
 
   def index
-    @menus = Menu.includes(:menu_meals).references(:menu_meals) #.to_a
+    @menus = Menu.all #includes(:menu_meals).references(:menu_meals) #.to_a
 
     respond_to do |format|
       format.html
-      format.json { render json: @menus }
+      format.json { render json: @menus, root: "menu_list", adapter: :json} #, root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
+      #render json: @menus, fields: { menus: [:date] }
     end
   end
+
+
 
   def create
     @menu = Menu.new(menu_params)

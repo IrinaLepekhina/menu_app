@@ -1,7 +1,8 @@
-class MealSerializer < ActiveModel::Serializer
-  attributes :id, :title
+class MealSerializer < ApplicationSerializer
+  attribute :title, key: :meal_title
+  attributes :id, :category_title
 
-  belongs_to :category
-  has_many :menu_meals, dependent: :restrict_with_error
-  has_many :menus, through: :menu_meals
+  def category_title
+    object.category.title
+  end
 end
