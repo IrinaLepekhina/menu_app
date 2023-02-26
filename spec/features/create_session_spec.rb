@@ -6,7 +6,7 @@ require_relative '../support/new_session_form'
 describe 'create new session' do
   let(:new_session_form) { NewSessionForm.new }
 
-  let(:user) { create(:user, email: 'first@email', nickname: 'ready_user_one', password: 'password123') }
+  let(:user) { create(:user, email: 'first@email', nickname: 'readyUserOne', password: 'password123') }
 
   it 'user is logged in with valid date' do
     user.reload
@@ -16,7 +16,7 @@ describe 'create new session' do
 
     expect(page).to have_content('you are logged in')
 
-    expect(page).to have_content('@ready_user_one')
+    expect(page).to have_content('@readyUserOne')
     expect(page).to have_button('Logout')
     expect(page).not_to have_link('New User')
     expect(page).not_to have_link('Login')

@@ -5,8 +5,9 @@ class Meal < ApplicationRecord
 
   enum price_type: { per_unit: 0, by_weight: 1 }
 
-  validates :price_init, numericality: true
-  validates :price_type, inclusion: { in: price_types.keys }
+  validates :price_init, numericality: { greater_than: 0 }
+  validates :price_type, inclusion: { in: price_types.keys ,
+    message: "%{value} not appropried type" }
 
   validates :description, :title, :price_type, :price_init, presence: true
   validates :title, uniqueness: true
