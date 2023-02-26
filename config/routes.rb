@@ -10,24 +10,23 @@ Rails.application.routes.draw do
     resources :meals, only: %i[index]
   end
 
-  resources :meals,  only: %i[new create show edit destroy update]
+  resources :meals, only: %i[new create show edit destroy update]
   resources :meals do
     get 'page/:page', action: :index, on: :collection
   end
 
-  resources :menu_meals,  only: %i[new create show edit destroy update]
+  resources :menu_meals, only: %i[new create show edit destroy update]
   resources :menu_meals do
     get 'page/:page', action: :index, on: :collection
   end
 
-  resources :menus,  only: %i[new create show edit destroy update]
+  resources :menus, only: %i[new create show edit destroy update]
   resources :menus do
     get 'page/:page', action: :index, on: :collection
   end
 
-  resources :categories,  only: %i[new create show edit destroy update]
+  resources :categories, only: %i[new create show edit destroy update]
   resources :categories do
     get 'page/:page', action: :index, on: :collection
   end
-
 end

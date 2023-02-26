@@ -1,0 +1,14 @@
+%table
+  %tr
+    %th= @category.title
+  - @category.meals.each do |meal|
+    %tr
+      %td= link_to meal.title, meal
+      %td= link_to "edit", edit_meal_path(meal)
+      %td= button_to 'delete', meal_path(meal),           |
+           method: :delete,                               |
+           form: {data: {turbo_confirm: 'are you sure?'}} |
+%p= link_to "add meal", new_meal_path
+%p= link_to "edit", edit_category_path(@category) |
+  \#{link_to "view all", categories_path} |
+  \#{button_to 'delete', category_path(@category),  method: :delete, form: {data: {turbo_confirm: 'Are you sure?'}}}

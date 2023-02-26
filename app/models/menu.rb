@@ -14,6 +14,6 @@ class Menu < ApplicationRecord
   end
 
   def self.next_week
-    where(date: Time.zone.now.at_beginning_of_week...Time.zone.now.at_end_of_week)
+    where(Date.today.beginning_of_week.to_time(:utc)...Date.today.beginning_of_week.to_time(:utc))
   end
 end

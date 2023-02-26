@@ -1,0 +1,6 @@
+%p "Edit Meal"
+= render 'form', meal: @meal
+%p
+  = link_to "show this", @meal
+  |
+  \#{link_to "show all", meals_path}

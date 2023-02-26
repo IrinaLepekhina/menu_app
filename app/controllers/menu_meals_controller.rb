@@ -2,17 +2,44 @@
 
 class MenuMealsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action 
+  # skip_before_action
 
   def index
     @menu_meals = MenuMeal.order(:id).page(params[:page]).per(1)
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @menu_meals }
     end
   end
-  
+
+  def show
+    @menu_meal = MenuMeal.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @menu_meal }
+    end
+  end
+
+  def new
+    @menu_meal = MenuMeal.new
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @menu_meal }
+    end
+  end
+
+  def edit
+    @menu_meal = MenuMeal.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @menu_meal }
+    end
+  end
+
   def create
     @menu_meal = MenuMeal.new(menu_meal_params)
 
@@ -26,33 +53,6 @@ class MenuMealsController < ApplicationController
       render :new
     end
   end
-    
-  def new
-    @menu_meal = MenuMeal.new
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
-  end
-  
-  def edit
-    @menu_meal = MenuMeal.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
-  end
-  
-  def show
-    @menu_meal = MenuMeal.find(params[:id])
-    
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
-  end
 
   def update
     @menu_meal = MenuMeal.find(params[:id])
@@ -61,7 +61,7 @@ class MenuMealsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to menu_meal_url(@menu_meal), notice: 'Menu item has been updated' }
         format.json { render json: @menu_meal }
-      end  
+      end
     else
       flash[:alert] = 'not updated'
       render :edit
@@ -72,14 +72,14 @@ class MenuMealsController < ApplicationController
     @menu_meal = MenuMeal.find(params[:id])
 
     if @menu_meal.destroy
-        respond_to do |format|
-          format.html { redirect_to menu_meals_url, notice: 'Meal item was excluded' }
-          # format.json { render json: }
-        end
-      else
-        redirect_to menu_meal_url(@menu_meal), notice: "Cannot delete meal itam"
+      respond_to do |format|
+        format.html { redirect_to menu_meals_url, notice: 'Meal item was excluded' }
+        # format.json { render json: }
       end
+    else
+      redirect_to menu_meal_url(@menu_meal), notice: "Cannot delete meal itam"
     end
+  end
 
   private
 

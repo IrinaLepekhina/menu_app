@@ -1,0 +1,6 @@
+%p Edit Category
+= render 'form', category: @category
+%p
+  = link_to "show this", @category
+  |
+  \#{link_to "show all", categories_path}

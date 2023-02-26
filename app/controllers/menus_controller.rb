@@ -2,30 +2,25 @@
 
 class MenusController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action 
+  # skip_before_action
 
   def index
     @menus = Menu.order(:date).page(params[:page]).per(10)
-    #includes(:menu_meals).references(:menu_meals) #.to_a
+    # includes(:menu_meals).references(:menu_meals) #.to_a
 
     respond_to do |format|
       format.html
-      format.json { render json: @menus, root: "menu_list", adapter: :json} #, root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
-      #render json: @menus, fields: { menus: [:date] }
+      format.json { render json: @menus, root: "menu_list", adapter: :json } # , root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
+      # render json: @menus, fields: { menus: [:date] }
     end
   end
 
-  def create
-    @menu = Menu.new(menu_params)
+  def show
+    @menu = Menu.find(params[:id])
 
-    if @menu.save
-      respond_to do |format|
-        format.html { redirect_to menu_url(@menu), notice: 'Menu was added' }
-        format.json { render json: @menu_meal }
-      end
-    else
-      # flash[:alert] = 'not created'
-      render :new
+    respond_to do |format|
+      format.html
+      format.json { render json: @menu }
     end
   end
 
@@ -48,23 +43,28 @@ class MenusController < ApplicationController
     end
   end
 
-  def show
-    @menu = Menu.find(params[:id])
+  def create
+    @menu = Menu.new(menu_params)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu }
+    if @menu.save
+      respond_to do |format|
+        format.html { redirect_to menu_url(@menu), notice: 'Menu was added' }
+        format.json { render json: @menu_meal }
+      end
+    else
+      # flash[:alert] = 'not created'
+      render :new
     end
   end
 
   def update
     @menu = Menu.find(params[:id])
-    
+
     if @menu.update(menu_params)
       respond_to do |format|
-        format.html { redirect_to menu_url(@menu), notice: 'Menu has been updated'}
+        format.html { redirect_to menu_url(@menu), notice: 'Menu has been updated' }
         format.json { render json: @menu }
-      end  
+      end
     else
       flash[:alert] = 'not updated'
       render :edit

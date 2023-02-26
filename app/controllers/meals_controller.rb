@@ -2,7 +2,7 @@
 
 class MealsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action 
+  # skip_before_action
 
   def index
     @meals = Meal.order(:title).page(params[:page]).per(2)
@@ -13,17 +13,12 @@ class MealsController < ApplicationController
     end
   end
 
-  def create
-    @meal = Meal.new(meal_params)
+  def show
+    @meal = Meal.find(params[:id])
 
-    if @meal.save
-      respond_to do |format|
-        format.html { redirect_to meal_url(@meal), notice: 'Meal was added' }
-        format.json { render json: @meal }
-      end
-    else
-      # flash[:alert] = 'not created'
-      render :new
+    respond_to do |format|
+      format.html
+      format.json { render json: @meal }
     end
   end
 
@@ -44,13 +39,18 @@ class MealsController < ApplicationController
       format.json { render json: @meal }
     end
   end
-  
-  def show
-    @meal = Meal.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @meal }
+  def create
+    @meal = Meal.new(meal_params)
+
+    if @meal.save
+      respond_to do |format|
+        format.html { redirect_to meal_url(@meal), notice: 'Meal was added' }
+        format.json { render json: @meal }
+      end
+    else
+      # flash[:alert] = 'not created'
+      render :new
     end
   end
 
@@ -61,7 +61,7 @@ class MealsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to meal_url(@meal), notice: 'Meal has been updated' }
         format.json { render json: @meal }
-      end      
+      end
     else
       flash[:alert] = 'not updated'
       render :edit

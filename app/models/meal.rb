@@ -4,12 +4,12 @@ class Meal < ApplicationRecord
   has_many :menus, through: :menu_meals
 
   enum price_type: { per_unit: 0, by_weight: 1 }
-  
+
   validates :price_init, numericality: true
   validates :price_type, inclusion: { in: price_types.keys }
 
-  validates_presence_of %i[description title price_type price_init]
-  validates_uniqueness_of :title
+  validates :description, :title, :price_type, :price_init, presence: true
+  validates :title, uniqueness: true
 
   mount_uploader :cover_image, CoverImageUploader
 

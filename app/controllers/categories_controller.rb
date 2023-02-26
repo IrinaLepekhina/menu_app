@@ -2,11 +2,11 @@
 
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action 
+  # skip_before_action
 
   def index
     @categories = Category.order(:title).page(params[:page]).per(10)
-    #includes(:meals).references(:meals) #.to_a
+    # includes(:meals).references(:meals) #.to_a
 
     respond_to do |format|
       format.html
@@ -14,17 +14,12 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def create
-    @category = Category.new(category_params)
+  def show
+    @category = Category.find(params[:id])
 
-    if @category.save
-      respond_to do |format|
-        format.html { redirect_to @category, notice: 'Category was added' }
-        format.json { render json: @menu_meal }
-      end
-    else
-      # flash[:alert] = 'not created'
-      render :new
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
     end
   end
 
@@ -46,12 +41,17 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def show
-    @category = Category.find(params[:id])
+  def create
+    @category = Category.new(category_params)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @category }
+    if @category.save
+      respond_to do |format|
+        format.html { redirect_to @category, notice: 'Category was added' }
+        format.json { render json: @menu_meal }
+      end
+    else
+      # flash[:alert] = 'not created'
+      render :new
     end
   end
 
@@ -62,7 +62,7 @@ class CategoriesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to category_url(@category), notice: 'Category has been updated' }
         format.json { render json: @category }
-      end      
+      end
     else
       flash[:alert] = 'not updated'
       render :edit

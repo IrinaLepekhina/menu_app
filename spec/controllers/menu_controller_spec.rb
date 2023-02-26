@@ -150,7 +150,7 @@ describe MenusController do
               post :create, params: { menu: @valid_data }
             end.to change(Menu, :count).by(1)
           end
-  
+
           it "creates new menu_meal in database" do
             expect do
               post :create, params: { menu: @valid_data }
@@ -158,16 +158,16 @@ describe MenusController do
           end
         end
       end
-  
+
       context "invalid data" do
         context 'without nested children' do
           let(:invalid_data) { attributes_for(:menu, title: '') }
-    
+
           it "renders :new template" do
             post :create, params: { menu: invalid_data }
             expect(response).to render_template(:new)
           end
-    
+
           it "doesn't create new menu in database" do
             expect do
               post :create, params: { menu: invalid_data }
@@ -188,7 +188,7 @@ describe MenusController do
               post :create, params: { menu: @invalid_menu_data }
               expect(response).to render_template(:new)
             end
-      
+
             it "doesn't create new menu in database" do
               expect do
                 post :create, params: { menu: @invalid_menu_data }
@@ -207,7 +207,7 @@ describe MenusController do
               post :create, params: { menu: @invalid_menu_meal_data }
               expect(response).to redirect_to(menu_path(assigns[:menu]))
             end
-      
+
             it "do create new menu in database" do
               expect do
                 post :create, params: { menu: @invalid_menu_meal_data }
@@ -253,7 +253,7 @@ describe MenusController do
             menu.reload
             menu_meal.reload
           end
-          
+
           it "redirects to menus#show" do
             expect(response).to redirect_to(menu)
           end
@@ -292,7 +292,7 @@ describe MenusController do
               menu.reload
               menu_meal.reload
             end
-            
+
             it "renders :edit template" do
               expect(response).to render_template(:edit)
             end
@@ -360,7 +360,6 @@ describe MenusController do
             expect(Menu).not_to exist(menu.id)
           end
         end
-
       end
     end
   end

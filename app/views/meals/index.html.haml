@@ -1,0 +1,12 @@
+= paginate @meals, remote: true
+%table
+  %tr
+    %th meals
+  - @meals.each do |meal|
+    %tr
+      %td= link_to meal.title, meal
+      %td= link_to "edit", edit_meal_path(meal)
+      %td= button_to 'delete', meal,                          |
+          method: :delete,                                   |
+          form: { data: { turbo_confirm: 'Are you sure?' } } |
+%p= link_to "create new meal", new_meal_path

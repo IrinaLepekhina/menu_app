@@ -11,7 +11,7 @@ class MenuSerializer < ApplicationSerializer
     attribute :description do
       object.description.downcase
     end
-  
+
     def menu_price
       object.menu_meals.first.price
     end
@@ -30,25 +30,25 @@ class MenuSerializer < ApplicationSerializer
 
   def attributes_list
     {
-      user_nickname: "current_user.nickname",
+      user_nickname: "current_user.nickname"
     }
   end
 
   def date
     object.date.to_time.to_i
   end
-  
+
   def url
     # menus_url(object)
-    Rails.application.routes.url_helpers.menu_url(object, {host: 'menu.com'}) #{only_path: true})
+    Rails.application.routes.url_helpers.menu_url(object, { host: 'menu.com' }) # {only_path: true})
   end
 
   def next_week
-    "#{ (Time.now.at_beginning_of_week...Time.now.at_end_of_week ).include?(object.date)}"
+    (Date.today.beginning_of_week.to_time(:utc)...Date.today.beginning_of_week.to_time(:utc) ).include?(object.date).to_s
   end
 end
 
-# If you wish to use Rails url helpers for link generation, e.g., link(:resources) { resources_url }, 
+# If you wish to use Rails url helpers for link generation, e.g., link(:resources) { resources_url },
 # ensure your application sets Rails.application.routes.default_url_options.
 
 # Rails.application.routes.default_url_options = {

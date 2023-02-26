@@ -1,0 +1,15 @@
+= paginate @menus, remote: true
+%table
+  %tr
+    %th menus
+  #menus{"data-menus" => "#{json_for @menus}"}
+    - @menus.each do |menu|
+      %tr
+        %td= link_to menu.title, menu
+        %td= link_to menu.date, menu
+        %td= link_to "edit", edit_menu_path(menu)
+        %td= button_to 'delete', menu_path(menu),           |
+            method: :delete,                               |
+            form: {data: {turbo_confirm: 'are you sure?'}} |
+%p= link_to "create new menu", new_menu_path
+%p= link_to "show all menu items", menu_meals_path

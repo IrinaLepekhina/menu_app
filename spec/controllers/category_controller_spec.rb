@@ -148,7 +148,7 @@ describe CategoriesController do
               post :create, params: { category: @valid_data }
             end.to change(Category, :count).by(1)
           end
-  
+
           it "creates new meal in database" do
             expect do
               post :create, params: { category: @valid_data }
@@ -156,16 +156,16 @@ describe CategoriesController do
           end
         end
       end
-  
+
       context "invalid data" do
         context 'without nested children' do
           let(:invalid_data) { attributes_for(:category, title: '') }
-    
+
           it "renders :new template" do
             post :create, params: { category: invalid_data }
             expect(response).to render_template(:new)
           end
-    
+
           it "doesn't create new category in database" do
             expect do
               post :create, params: { category: invalid_data }
@@ -184,7 +184,7 @@ describe CategoriesController do
               post :create, params: { category: @invalid_category_data }
               expect(response).to render_template(:new)
             end
-      
+
             it "doesn't create new category in database" do
               expect do
                 post :create, params: { category: @invalid_category_data }
@@ -203,7 +203,7 @@ describe CategoriesController do
               post :create, params: { category: @invalid_meal_data }
               expect(response).to redirect_to(category_path(assigns[:category]))
             end
-      
+
             it "do create new category in database" do
               expect do
                 post :create, params: { category: @invalid_meal_data }

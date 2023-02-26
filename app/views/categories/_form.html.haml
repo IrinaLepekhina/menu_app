@@ -1,0 +1,6 @@
+= simple_form_for @category do |f|
+  = f.error_notification
+  = f.input :title, label: 'Category title'
+  = f.simple_fields_for :meals do |meals|
+    = render 'meal_fields',  { f: meals, category: @category }
+  = f.submit 'submit', class: 'btn btn-primary'
