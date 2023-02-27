@@ -13,6 +13,10 @@ class Menu < ApplicationRecord
     attributes['price'].blank?
   end
 
+  def remove_menu_meals(item_to_remove_id)
+    menu_meals.where(id: item_to_remove_id).first.try(:destroy)
+  end
+
   def self.next_week
     where(Date.today.beginning_of_week.to_time(:utc)...Date.today.beginning_of_week.to_time(:utc))
   end
