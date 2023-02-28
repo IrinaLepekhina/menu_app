@@ -18,6 +18,14 @@ class MenuMeal < ApplicationRecord
     self.menu.increment!(:items_counter, -1)
   end
 
+  def self.found_by_price(banchmark)
+    where("menu_meals.price <= ?", banchmark)
+  end
+
+  def self.created_today
+    where("created_at > ?", 1.day.ago)
+  end
+
   # def price=(new_price)
   #   self.old_price = self.price
   #   super
