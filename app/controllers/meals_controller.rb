@@ -5,7 +5,11 @@ class MealsController < ApplicationController
   # skip_before_action
 
   def index
-    @meals = Meal.order(:title).page(params[:page]).per(2)
+    @meals = Meal
+      .order(created_at: :asc, category_title: :desc)
+      .joins(:category)
+      .select("meals.*, categories.title as category_title")
+      .page(params[:page]).per(10)
 
     respond_to do |format|
       format.html

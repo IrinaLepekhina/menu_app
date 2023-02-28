@@ -5,7 +5,12 @@ class MenuMealsController < ApplicationController
   # skip_before_action
 
   def index
-    @menu_meals = MenuMeal.order(:id).page(params[:page]).per(1)
+    @menu_meals = MenuMeal
+      .order(created_at: :asc, menu_title: :desc)
+      .joins(:menu)    
+      .joins(:meal)
+      .select("menu_meals.*, menus.title as menu_title, menus.date as menu_date, meals.title as meal_title")
+      .page(params[:page]).per(10)
 
     respond_to do |format|
       format.html

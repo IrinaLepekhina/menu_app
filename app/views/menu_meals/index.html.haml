@@ -5,12 +5,12 @@
   - @menu_meals.each do |menu_meal|
     %tr
       %td
-        = link_to menu_meal.menu.title, menu_meal
+        = link_to menu_meal.menu_title, menu_meal
       %td
-        = link_to menu_meal.menu.date, menu_meal
+        = link_to menu_meal.menu_date, menu_meal
         |
       %td
-        = link_to menu_meal.meal.title, menu_meal
+        = link_to menu_meal.meal_title, menu_meal
         |
       %td
         = link_to menu_meal.price, menu_meal

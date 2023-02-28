@@ -5,6 +5,7 @@
   - @meals.each do |meal|
     %tr
       %td= link_to meal.title, meal
+      %td= meal.category_title
       %td= link_to "edit", edit_meal_path(meal)
       %td= button_to 'delete', meal,                          |
           method: :delete,                                   |

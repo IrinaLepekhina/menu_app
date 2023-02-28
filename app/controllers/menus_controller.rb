@@ -5,9 +5,10 @@ class MenusController < ApplicationController
   # skip_before_action
 
   def index
-    @menus = Menu.order(:date).page(params[:page]).per(10)
-    # includes(:menu_meals).references(:menu_meals) #.to_a
-
+    @menus = Menu
+      .includes(:meals).references(:meals)
+      .page(params[:page]).per(10)
+      
     respond_to do |format|
       format.html
       format.json { render json: @menus, root: "menu_list", adapter: :json } # , root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
