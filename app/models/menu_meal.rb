@@ -8,6 +8,14 @@ class MenuMeal < ApplicationRecord
   after_create :increment_menu_counter
   after_destroy :decrement_menu_counter
 
+  def menu_title
+    read_attribute(:menu_title) || menu.title
+  end
+
+  def menu_date
+    read_attribute(:menu_date) || menu.date
+  end
+
   private
 
   def increment_menu_counter #after_create do

@@ -14,6 +14,10 @@ class Meal < ApplicationRecord
 
   mount_uploader :cover_image, CoverImageUploader
 
+  def category_title
+    read_attribute(:category_title) || category.title
+  end
+
   def silly_title
     "#{title} from #{category.title}"
   end
