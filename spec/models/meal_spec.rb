@@ -15,10 +15,11 @@ RSpec.describe Meal do
     it { is_expected.to validate_uniqueness_of(:title).case_insensitive }
   end
 
+  # application helper test. stub?
   it 'converts markdown to html' do
     meal = create(:by_weight_meal, description: 'Awesome **food** U *have to* try')
-    expect(meal.description_html).to include('<strong>food</strong>')
-    expect(meal.description_html).to include('<em>have to</em>')
+    expect(markdown(meal.description)).to include('<strong>food</strong>')
+    expect(markdown(meal.description)).to include('<em>have to</em>')
   end
 
   it 'has silly title' do

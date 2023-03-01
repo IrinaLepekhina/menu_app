@@ -2,7 +2,7 @@
   = @meal.title
 %h1
   = @meal.price_init
-%div= @meal.description_html.html_safe
+%div= sanitize markdown(@meal.description)
 %div= image_tag @meal.cover_image_url.to_s
 
 %p

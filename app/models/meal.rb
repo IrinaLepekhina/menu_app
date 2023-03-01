@@ -9,7 +9,7 @@ class Meal < ApplicationRecord
   validates :price_type, inclusion: { in: price_types.keys ,
     message: "%{value} not appropried type" }
 
-  validates :description, :title, :price_type, :price_init, presence: true
+  validates  :title, :price_type, :price_init, presence: true #:description,
   validates :title, uniqueness: true
 
   mount_uploader :cover_image, CoverImageUploader
@@ -28,10 +28,9 @@ class Meal < ApplicationRecord
   # scope :by_letter, ->(letter) { includes(:category).where("meals.title LIKE ?", "#{letter}%").order("categories.title")}
   scope :promo_and_expensive, -> { promo.where('price_init > 500') }
 
-  def description_html
-    ### add check - if exists/not nul
-    Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(description)
-  end
+  # def description_html
+  #   Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(description)
+  # end
 end
 
 # category
