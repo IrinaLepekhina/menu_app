@@ -24,6 +24,8 @@ gem 'html2haml'
 gem 'haml-rails'
 gem 'active_model_serializers'
 gem 'kaminari'
+gem 'rouge'
+gem 'nokogiri'
 
 # good gems:
 # gem letter_opener

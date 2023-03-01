@@ -282,6 +282,7 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.6.1)
     rexml (3.2.5)
+    rouge (4.1.0)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.2)
@@ -407,10 +408,12 @@ DEPENDENCIES
   kaminari
   listen
   mysql2 (~> 0.5)
+  nokogiri
   puma (~> 5.0)
   rails (~> 7.0.4)
   rails-controller-testing
   redcarpet!
+  rouge
   rspec-rails
   rubocop
   rubocop-performance
