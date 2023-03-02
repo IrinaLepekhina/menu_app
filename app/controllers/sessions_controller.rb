@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user! # not implemented in spec
+
   def new; end
 
   def create

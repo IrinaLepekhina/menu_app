@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   serialization_scope :view_context
 
+  before_action :authenticate_user!
+
   helper_method :current_user
 
   private

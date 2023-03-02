@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class MenuMealsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
+  def render_formats(target)
+    respond_to do |format|
+      format.html
+      format.json { render json: target }
+    end
+  end
 
   def index
     @menu_meals = MenuMeal
@@ -12,37 +18,25 @@ class MenuMealsController < ApplicationController
       .select("menu_meals.*, menus.title as menu_title, menus.date as menu_date, meals.title as meal_title")
       .page(params[:page]).per(10)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meals }
-    end
+      render_formats(@menu_meals)
   end
 
   def show
     @menu_meal = MenuMeal.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
+    render_formats(@menu_meal)
   end
 
   def new
     @menu_meal = MenuMeal.new
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
+    render_formats(@menu_meal)
   end
 
   def edit
     @menu_meal = MenuMeal.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu_meal }
-    end
+    render_formats(@menu_meal)
   end
 
   def create

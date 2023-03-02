@@ -1,47 +1,41 @@
 # frozen_string_literal: true
 
 class MenusController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
+  def render_formats(target)
+    respond_to do |format|
+      format.html
+      format.json { render json: target } # , root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
+      # render json: @menus, fields: { menus: [:date] }
+    end
+  end
 
   def index
     @menus = Menu
       .includes(:meals).references(:meals)
       .page(params[:page]).per(10)
       
-    respond_to do |format|
-      format.html
-      format.json { render json: @menus, root: "menu_list", adapter: :json } # , root: false, include: ['menu_meals', 'meals' ]}  #.*', 'meals.category'] }
-      # render json: @menus, fields: { menus: [:date] }
-    end
+      render_formats(@menus)
   end
 
   def show
     @menu = Menu.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu }
-    end
+    render_formats(@menu)
   end
 
   def new
     @menu = Menu.new
     @menu.menu_meals.build
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu }
-    end
+    render_formats(@menu)
   end
 
   def edit
     @menu = Menu.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @menu }
-    end
+    render_formats(@menu)
   end
 
   def create

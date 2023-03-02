@@ -1,44 +1,39 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
-  # skip_before_action
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
+  def render_formats(target)
+    respond_to do |format|
+      format.html
+      format.json { render json: target }
+    end
+  end
 
   def index
     @categories = Category.includes(:meals).references(:meals)
       .order(:title).page(params[:page]).per(10)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @categories }
-    end
+      render_formats(@categories)
   end
 
   def show
     @category = Category.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @category }
-    end
+    render_formats(@category)
   end
 
   def new
     @category = Category.new
     @category.meals.build
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @category }
-    end
+    render_formats(@category)
   end
 
   def edit
     @category = Category.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json { render json: @category }
-    end
+
+    render_formats(@categories)
   end
 
   def create
