@@ -150,6 +150,10 @@ GEM
     date (3.3.3)
     debug (1.7.1)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     erubis (2.7.0)
     factory_bot (6.2.1)
@@ -399,6 +403,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   debug
+  dotenv-rails
   factory_bot_rails
   haml
   haml-rails

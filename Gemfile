@@ -27,6 +27,8 @@ gem 'kaminari'
 gem 'rouge'
 gem 'nokogiri'
 
+gem 'dotenv-rails'
+
 # good gems:
 # gem letter_opener
 # gem email-spec
