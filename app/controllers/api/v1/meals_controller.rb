@@ -5,11 +5,12 @@ module Api::V1
 
     def index
       meals = Meal
-        .order(created_at: :asc)
+        .order(created_at: :asc, category_title: :desc)
         .joins(:category)
         .select("meals.*, categories.title as category_title")
+        .page(params[:page]).per(10)
           
-        render json: meals
+      render json: meals
     end
   end
 end
