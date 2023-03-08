@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: {format: 'json'} do
-    # resources :users, only: %i[new create]
     post 'signin', to: 'authentication#authenticate'
     post 'signup', to: 'users#create'
   end
