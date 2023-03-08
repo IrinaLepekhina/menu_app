@@ -190,6 +190,7 @@ GEM
       railties (>= 6.0.0)
     json (2.6.3)
     jsonapi-renderer (0.2.2)
+    jwt (2.7.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -410,6 +411,7 @@ DEPENDENCIES
   html2haml
   jbuilder
   jsbundling-rails
+  jwt
   kaminari
   listen
   mysql2 (~> 0.5)

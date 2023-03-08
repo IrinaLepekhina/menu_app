@@ -11,8 +11,8 @@ RSpec.describe Api::V2::MealsController, type: :request do
 
       expect(response).to have_http_status(:ok)
 
-      json = JSON.parse(response.body)
 
+      json = JSON.parse(response.body)
       expect(json.count).to eq(2)
       expect(json[0]["meal_title"]).to eq('la ensalsda Mexicana')
     end

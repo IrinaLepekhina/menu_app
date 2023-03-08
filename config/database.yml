@@ -15,6 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
+  # host: <%= ENV['DB_HOST'] %> #docker use  
   socket: /var/run/mysqld/mysqld.sock
 
 development:
@@ -51,5 +52,5 @@ test:
 production:
   <<: *default
   database: menu_app_m_production
-  username: menu_app_m
-  password: <%= ENV["MENU_APP_M_DATABASE_PASSWORD"] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>  

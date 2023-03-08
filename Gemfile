@@ -29,6 +29,8 @@ gem 'nokogiri'
 
 gem 'dotenv-rails'
 
+gem 'jwt'
+
 # good gems:
 # gem letter_opener
 # gem email-spec

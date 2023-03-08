@@ -4,8 +4,8 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :users, only: %i[new create show]
   resource :session, only: %i[new create destroy]
+  resources  :users, only: %i[new create show]
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1) do
@@ -16,23 +16,11 @@ Rails.application.routes.draw do
     end
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  namespace :api, defaults: {format: 'json'} do
+    # resources :users, only: %i[new create]
+    post 'signin', to: 'authentication#authenticate'
+    post 'signup', to: 'users#create'
+  end
 
 
   resources :meals, only: %i[new create show edit destroy update]

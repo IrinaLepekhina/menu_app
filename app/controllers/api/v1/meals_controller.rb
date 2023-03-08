@@ -1,7 +1,8 @@
 module Api::V1
   class MealsController < ApiController
     # http_basic_authenticate_with name: 'user25@email', password: 'qwerty'
-    skip_before_action :authenticate_user!, only: [:index]
+    # skip_before_action :authenticate_user!, only: [:index]
+    skip_before_action :verify_authenticity_token, :only => :create
 
     def index
       meals = Meal
