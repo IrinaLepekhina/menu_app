@@ -13,6 +13,8 @@ class NewUserForm
     fill_in('nickname', with: 'my0name')
 
     fill_in('password', with: 'very_secure')
+    fill_in('user_password_confirmation', with: 'very_secure')    
+
 
     self
   end

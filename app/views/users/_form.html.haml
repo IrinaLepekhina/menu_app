@@ -3,4 +3,5 @@
   = f.input :email, label: 'email'
   = f.input :nickname, label: 'nickname'
   = f.input :password, :required => true, input_html: { value: @user.password }, label: 'password'
+  = f.input :password_confirmation, :required => true, input_html: { value: @user.password }
   = f.submit 'Create User', class: 'btn btn-primary'

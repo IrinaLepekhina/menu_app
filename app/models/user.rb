@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   validates_presence_of :email, :nickname, :password_digest
   validates_uniqueness_of :email, :nickname
+  validates_confirmation_of :password
 
   validates :nickname, exclusion: { in: %w(admin administrator),
     message: "is reserved" }
@@ -11,6 +12,11 @@ class User < ApplicationRecord
 
   # encrypt password
   has_secure_password
+
+  def self.authenticate(email, password)
+    user = find_by_email(email)
+    user if user && user.authenticate(password)
+  end
 
   # model mailer
   # need migration on User#send_confirmations, true
