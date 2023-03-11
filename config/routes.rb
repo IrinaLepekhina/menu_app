@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
   resources  :users, only: %i[new create show]
 
+  # added, not changed
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'signin', to: 'sessions#new', as: 'signin'
+  get 'signout', to: 'sessions#destroy', as: 'signout'
+
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1) do
       resources :meals

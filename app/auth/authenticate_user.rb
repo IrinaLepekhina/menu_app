@@ -1,13 +1,17 @@
 # app/auth/authenticate_user.rb
 class AuthenticateUser
-  def initialize(email, password)
-    @email = email
-    @password = password
+  def initialize(params = {})
+    @email = params[:email]
+    @password = params[:password]
   end
 
   # Service entry point
   def call
     JsonWebToken.encode(user_id: user.id) if user
+  end
+
+  def authenticated?
+    user.present?
   end
 
   private

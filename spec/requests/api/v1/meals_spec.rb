@@ -4,8 +4,8 @@ RSpec.describe Api::V1::MealsController, type: :request do
   describe "GET index" do
     it 'sends meals' do
       user = create(:user)
-      auth_token = AuthenticateUser.new(user.email, user.password).call
-      ## authenticate before requests
+      auth_token = AuthenticateUser.new({email: user.email, password: user.password}).call
+      # authenticate before requests
       
       category = create(:category)
       by_weight_meal = create(:by_weight_meal, title: 'la ensalsda Mexicana')

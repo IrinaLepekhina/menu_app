@@ -64,7 +64,10 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include ApplicationHelper
+  # config.include AuthenticateUserHelper
 end
+
+# Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
